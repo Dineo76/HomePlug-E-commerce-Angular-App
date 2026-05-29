@@ -6,25 +6,11 @@
     }
 
     :host {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       min-height: 100vh;
       width: 100%;
-    }
-
-    body {
-      background-color: #9caf88; 
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 1.5rem;
-      margin: 0;
-      background-image: radial-gradient(circle at 15% 30%, rgba(70, 80, 55, 0.08) 2%, transparent 2.5%),
-                        radial-gradient(circle at 75% 70%, rgba(50, 65, 40, 0.05) 1.8%, transparent 2%);
-      background-size: 48px 48px, 60px 60px;
     }
 
     .login-container {

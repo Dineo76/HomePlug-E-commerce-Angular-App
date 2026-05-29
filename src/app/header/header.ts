@@ -19,7 +19,7 @@ export class Header {
 
       .then(() => {
 
-        alert('Logged out');
+        localStorage.removeItem('user');
 
         this.router.navigate(['/login']);
 

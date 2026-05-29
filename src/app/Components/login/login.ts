@@ -24,10 +24,12 @@ export class LoginComponent {
 
       .then((userCredential) => {
 
-        console.log('Logged in:', userCredential.user);
+        localStorage.setItem(
+          'user',
+          JSON.stringify(userCredential.user)
+        );
 
-        alert('Login successful');
-
+  alert('Login successful');
       })
 
       .catch((error) => {

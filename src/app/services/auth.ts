@@ -30,6 +30,10 @@ export class AuthService {
     );
   }
 
+  getUser() {
+    return JSON.parse(localStorage.getItem('user') || 'null');
+  }
+
   logout() {
     return signOut(this.auth);
   }

@@ -34,3 +34,5 @@ export class AuthService {
     return signOut(this.auth);
   }
 }
+
+export { Auth };

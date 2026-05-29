@@ -4,7 +4,8 @@ import {
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  sendPasswordResetEmail
 } from '@angular/fire/auth';
 
 @Injectable({
@@ -32,6 +33,13 @@ export class AuthService {
 
   getUser() {
     return JSON.parse(localStorage.getItem('user') || 'null');
+  }
+
+  forgotPassword(email: string) {
+    return sendPasswordResetEmail(
+      this.auth,
+      email
+    );
   }
 
   logout() {

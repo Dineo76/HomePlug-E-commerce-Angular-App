@@ -1,0 +1,24 @@
+h2 {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .card {
+    width: 220px;
+    padding: 15px;
+    background: #f6f7f2;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .sale {
+    border: 2px solid green;
+    background: #eaf5ea;
+  }

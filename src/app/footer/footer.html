@@ -1,1 +1,43 @@
-<p>footer works!</p>
+<footer>
+    <div class="footer-inner">
+  
+      <div class="footer-brand">
+        <div class="brand-top">
+          <span class="logo">{{ brandName() }}</span>
+          <div class="divider"></div>
+        </div>
+        <p class="tagline">{{ tagline() }}</p>
+        <div class="socials">
+          @for (social of socials(); track social.label) {
+            <a [href]="social.href" [attr.aria-label]="social.label" class="social-btn">
+              {{ social.symbol }}
+            </a>
+          }
+        </div>
+      </div>
+  
+      <div class="footer-links">
+        @for (section of footerSections(); track section.title) {
+          <div class="link-col">
+            <h4>{{ section.title }}</h4>
+            @for (link of section.links; track link.label) {
+              <a [href]="link.href">{{ link.label }}</a>
+            }
+          </div>
+        }
+  
+        <div class="link-col">
+          <h4>Contact</h4>
+          <a [href]="'mailto:' + email()">{{ email() }}</a>
+          <a [href]="'tel:' + phone()">{{ phone() }}</a>
+          <span class="address">{{ address() }}</span>
+        </div>
+      </div>
+  
+    </div>
+  
+    <div class="footer-bottom">
+      <span class="copy">{{ copyright() }} — All rights reserved.</span>
+      <span class="heart">Crafted with ♥ in Cape Town</span>
+    </div>
+  </footer>

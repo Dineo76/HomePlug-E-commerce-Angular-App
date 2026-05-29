@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
-  selector: 'app-home-page',
-  imports: [],
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './home-page.html',
-  styleUrl: './home-page.css',
+  styleUrls: ['./home-page.css']
 })
-export class HomePage {}
+export class HomePage {
+
+  products: any[] = [];
+
+
+}

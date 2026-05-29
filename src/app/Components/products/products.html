@@ -1,1 +1,128 @@
-<p>products works!</p>
+<section class="products-section">
+
+    <div class="heading">
+      <h1>Furniture Collection</h1>
+  
+      <p>Modern furniture for every home</p>
+  
+      <h3>
+        Cart Items: {{ cart().length }} |
+        Wishlist: {{ wishlist().length }}
+      </h3>
+    </div>
+  
+    <!-- PRODUCTS GRID -->
+    <div class="products-container">
+  
+      @for(product of productService.products(); track product.id) {
+  
+        <div class="product-card">
+  
+          <!-- WISHLIST -->
+          <button class="wish-btn" (click)="toggleWishlist(product)">
+            {{ isWishlisted(product) ? '❤️' : '🤍' }}
+          </button>
+  
+          <img [src]="product.thumbnail" [alt]="product.title">
+  
+          <div class="product-info">
+  
+            <h2>{{ product.title }}</h2>
+  
+            <p>{{ product.description }}</p>
+  
+            <p class="price">R{{ product.price }}</p>
+  
+            <div class="buttons">
+  
+              <!-- VIEW MODAL -->
+              <button (click)="openModal(product)">
+                View
+              </button>
+  
+              <button (click)="addToCart(product)">
+                Add To Cart
+              </button>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      }
+  
+    </div>
+  
+    <!-- MODAL -->
+   <!-- MODAL -->
+@if(selectedProduct()) {
+
+    <div class="modal-backdrop" (click)="closeModal()">
+  
+      <div class="modal" (click)="$event.stopPropagation()">
+  
+        <!-- CLOSE BUTTON -->
+        <button class="close-modal" (click)="closeModal()">
+          ✕
+        </button>
+  
+        <h2>{{ selectedProduct().title }}</h2>
+  
+        <img [src]="selectedProduct().thumbnail">
+  
+        <p>{{ selectedProduct().description }}</p>
+  
+        <p class="price">
+          R{{ selectedProduct().price }}
+        </p>
+  
+        <!-- QUANTITY -->
+        <div class="quantity-box">
+  
+          <button (click)="decreaseQty(selectedProduct())">
+            -
+          </button>
+  
+          <span>
+            {{
+              cart().find(p => p.id === selectedProduct().id)?.quantity || 0
+            }}
+          </span>
+  
+          <button (click)="increaseQty(selectedProduct())">
+            +
+          </button>
+  
+        </div>
+  
+        <!-- BUTTONS -->
+        <div class="modal-buttons">
+  
+          <button
+            class="cart-btn"
+            (click)="addToCart(selectedProduct())"
+          >
+            Add To Cart
+          </button>
+  
+          @if(cart().find(p => p.id === selectedProduct().id)) {
+  
+            <button
+              class="remove-btn"
+              (click)="removeFromCart(selectedProduct())"
+            >
+              Remove From Cart
+            </button>
+  
+          }
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  }
+  
+  </section>

@@ -1,16 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ProductsService} from '../../Services/product-services'
+import { ProductsService } from '../../Services/product-services';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './products.html',
-  styleUrl: './products.css'
+  styleUrls: ['./products.css']
 })
 
-export class Products {
+export class Products implements OnInit {
 
   productService = inject(ProductsService);
 
@@ -23,11 +23,11 @@ export class Products {
   // MODAL
   selectedProduct = signal<any | null>(null);
 
-  constructor() {
+  ngOnInit(): void {
     this.productService.getProducts();
   }
 
-  /* CART  */
+  /* CART */
 
   addToCart(product: any) {
     this.cart.update(items => {
@@ -73,7 +73,7 @@ export class Products {
     );
   }
 
-  /* ---------------- WISHLIST ---------------- */
+  /* WISHLIST */
 
   toggleWishlist(product: any) {
     this.wishlist.update(items => {
@@ -91,7 +91,7 @@ export class Products {
     return this.wishlist().some(p => p.id === product.id);
   }
 
-  /* ---------------- MODAL ---------------- */
+  /* MODAL */
 
   openModal(product: any) {
     this.selectedProduct.set(product);

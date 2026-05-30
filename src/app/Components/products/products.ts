@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
 
@@ -7,14 +7,13 @@ import { ProductsService } from '../../Services/product-services';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './products.html',
-  styleUrls: ['./products.css']
+  styleUrl: './products.css'
 })
-
 export class Products implements OnInit {
 
   productService = inject(ProductsService);
 
-  // CART with quantity
+  // CART
   cart = signal<any[]>([]);
 
   // WISHLIST
@@ -23,11 +22,16 @@ export class Products implements OnInit {
   // MODAL
   selectedProduct = signal<any | null>(null);
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.productService.getProducts();
   }
 
-  /* CART */
+  // TOTAL CART QUANTITY (important fix)
+  cartTotal = computed(() =>
+    this.cart().reduce((sum, item) => sum + item.quantity, 0)
+  );
+
+  /* ================= CART ================= */
 
   addToCart(product: any) {
     this.cart.update(items => {
@@ -52,6 +56,13 @@ export class Products implements OnInit {
   }
 
   increaseQty(product: any) {
+    const exists = this.cart().find(p => p.id === product.id);
+
+    if (!exists) {
+      this.addToCart(product);
+      return;
+    }
+
     this.cart.update(items =>
       items.map(p =>
         p.id === product.id
@@ -73,7 +84,7 @@ export class Products implements OnInit {
     );
   }
 
-  /* WISHLIST */
+  /* ================= WISHLIST ================= */
 
   toggleWishlist(product: any) {
     this.wishlist.update(items => {
@@ -91,7 +102,7 @@ export class Products implements OnInit {
     return this.wishlist().some(p => p.id === product.id);
   }
 
-  /* MODAL */
+  /* ================= MODAL ================= */
 
   openModal(product: any) {
     this.selectedProduct.set(product);

@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-
 export class ProductsService {
 
   private http = inject(HttpClient);
@@ -14,13 +13,13 @@ export class ProductsService {
   apiUrl = 'https://dummyjson.com/products/category/furniture';
 
   getProducts() {
-
-    this.http.get<any>(this.apiUrl).subscribe((response) => {
-
-      this.products.set(response.products);
-
+    this.http.get<any>(this.apiUrl).subscribe({
+      next: (response) => {
+        this.products.set(response.products);
+      },
+      error: (err: any) => {
+        console.warn('API failed, retrying later...', err);
+      }
     });
-
   }
-
 }

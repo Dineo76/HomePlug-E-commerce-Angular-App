@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, OnInit  } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
 
@@ -13,22 +13,49 @@ export class Products implements OnInit {
 
   productService = inject(ProductsService);
 
-  // CART
-  cart = signal<any[]>([]);
+  /* ================= TOAST ================= */
+  toastMessage = signal<string | null>(null);
 
-  // WISHLIST
-  wishlist = signal<any[]>([]);
+  showToast(message: string) {
+    this.toastMessage.set(message);
 
-  // MODAL
+    setTimeout(() => {
+      this.toastMessage.set(null);
+    }, 2000);
+  }
+
+  /* ================= MODALS ================= */
+
+  showCart = signal(false);
+  showWishlist = signal(false);
   selectedProduct = signal<any | null>(null);
 
-   ngOnInit(): void {
+  openCart() { this.showCart.set(true); }
+  closeCart() { this.showCart.set(false); }
+
+  openWishlist() { this.showWishlist.set(true); }
+  closeWishlist() { this.showWishlist.set(false); }
+
+  /* ================= STATE ================= */
+
+  cart = signal<any[]>([]);
+  wishlist = signal<any[]>([]);
+
+  ngOnInit(): void {
     this.productService.getProducts();
   }
 
-  // TOTAL CART QUANTITY (important fix)
+  /* ================= CART TOTALS ================= */
+
   cartTotal = computed(() =>
     this.cart().reduce((sum, item) => sum + item.quantity, 0)
+  );
+
+  cartTotalPrice = computed(() =>
+    this.cart().reduce(
+      (sum, item) => sum + Number(item.price) * item.quantity,
+      0
+    )
   );
 
   /* ================= CART ================= */
@@ -38,12 +65,15 @@ export class Products implements OnInit {
       const existing = items.find(p => p.id === product.id);
 
       if (existing) {
+        this.showToast('Quantity updated in cart');
         return items.map(p =>
           p.id === product.id
             ? { ...p, quantity: p.quantity + 1 }
             : p
         );
       }
+
+      this.showToast('Added to cart');
 
       return [...items, { ...product, quantity: 1 }];
     });
@@ -53,23 +83,12 @@ export class Products implements OnInit {
     this.cart.update(items =>
       items.filter(p => p.id !== product.id)
     );
+
+    this.showToast('Removed from cart');
   }
 
   increaseQty(product: any) {
-    const exists = this.cart().find(p => p.id === product.id);
-
-    if (!exists) {
-      this.addToCart(product);
-      return;
-    }
-
-    this.cart.update(items =>
-      items.map(p =>
-        p.id === product.id
-          ? { ...p, quantity: p.quantity + 1 }
-          : p
-      )
-    );
+    this.addToCart(product);
   }
 
   decreaseQty(product: any) {
@@ -82,6 +101,8 @@ export class Products implements OnInit {
         )
         .filter(p => p.quantity > 0)
     );
+
+    this.showToast('Quantity updated');
   }
 
   /* ================= WISHLIST ================= */
@@ -91,9 +112,11 @@ export class Products implements OnInit {
       const exists = items.find(p => p.id === product.id);
 
       if (exists) {
+        this.showToast('Removed from wishlist');
         return items.filter(p => p.id !== product.id);
       }
 
+      this.showToast('Added to wishlist');
       return [...items, product];
     });
   }

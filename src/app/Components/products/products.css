@@ -400,9 +400,8 @@
     align-items: flex-start;
   }
 }
-/* =========================
-   CART SUBTOTAL STYLE
-========================= */
+
+/*CART SUBTOTAL STYLE */
 
 .subtotal {
   margin-top: 6px;
@@ -438,4 +437,32 @@
     transform: translateX(0);
     opacity: 1;
   }
+}
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.stat-btn {
+  margin: 5px;
+}
+
+.toast {
+  z-index: 9999;
+}
+
+.modal-backdrop {
+  z-index: 1000;
+}
+button {
+  pointer-events: auto;
 }

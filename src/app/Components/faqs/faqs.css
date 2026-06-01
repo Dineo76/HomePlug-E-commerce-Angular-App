@@ -46,3 +46,31 @@ p {
     text-align: center;
     color: #5c4033;
 }
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.search-container input {
+  width: 300px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-container button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #5c4033;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #7a5643;
+}

@@ -12,26 +12,39 @@
     <h1>Furniture Collection</h1>
     <p>Modern furniture for every home</p>
 
-    <!-- CATEGORY FILTER -->
-    <div class="category-filters">
+    
+   <!-- CATEGORY FILTER -->
+<div class="category-filters">
 
-      <button class="stat-btn" (click)="selectedCategory.set('all')">
-        All
-      </button>
+  <button
+    class="stat-btn"
+    (click)="selectedCategory.set('all')"
+    [class.active-category]="selectedCategory() === 'all'">
+    All
+  </button>
 
-      <button class="stat-btn" (click)="selectedCategory.set('furniture')">
-        Furniture
-      </button>
+  <button
+    class="stat-btn"
+    (click)="selectedCategory.set('furniture')"
+    [class.active-category]="selectedCategory() === 'furniture'">
+    Furniture
+  </button>
 
-      <button class="stat-btn" (click)="selectedCategory.set('home-decoration')">
-        Home Decor
-      </button>
+  <button
+    class="stat-btn"
+    (click)="selectedCategory.set('home-decoration')"
+    [class.active-category]="selectedCategory() === 'home-decoration'">
+    Home Decor
+  </button>
 
-      <button class="stat-btn" (click)="selectedCategory.set('kitchen-accessories')">
-        Kitchen
-      </button>
+  <button
+    class="stat-btn"
+    (click)="selectedCategory.set('kitchen-accessories')"
+    [class.active-category]="selectedCategory() === 'kitchen-accessories'">
+    Kitchen
+  </button>
 
-    </div>
+</div>
 
     <!-- CART + WISHLIST -->
     <div class="stats">

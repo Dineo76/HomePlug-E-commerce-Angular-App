@@ -12,6 +12,7 @@ import { ProductsService } from '../../Services/product-services';
 export class Products implements OnInit {
 
   productService = inject(ProductsService);
+  
 
  /* UI STATE  */
 
@@ -54,6 +55,10 @@ export class Products implements OnInit {
 
     return products.filter(p => p.category === category);
   });
+
+  selectCategory(category: string) {
+    this.selectedCategory.set(category);
+  }
 
  /* INIT */
 
@@ -125,11 +130,13 @@ export class Products implements OnInit {
   toggleWishlist(product: any) {
     this.wishlist.update(items => {
       const exists = items.find(p => p.id === product.id);
-
+  
       if (exists) {
+        this.showToast('Removed from wishlist ❌');
         return items.filter(p => p.id !== product.id);
       }
-
+  
+      this.showToast('Added to wishlist ❤️');
       return [...items, product];
     });
   }

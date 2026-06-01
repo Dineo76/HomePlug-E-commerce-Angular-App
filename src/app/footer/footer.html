@@ -2,42 +2,44 @@
     <div class="footer-inner">
   
       <div class="footer-brand">
-        <div class="brand-top">
-          <span class="logo">{{ brandName() }}</span>
-          <div class="divider"></div>
-        </div>
-        <p class="tagline">{{ tagline() }}</p>
+        <h2>HomePlug</h2>
+        <p>Quality finds, delivered to your door.</p>
+  
         <div class="socials">
-          @for (social of socials(); track social.label) {
-            <a [href]="social.href" [attr.aria-label]="social.label" class="social-btn">
-              {{ social.symbol }}
-            </a>
-          }
+          <a href="#">𝕏</a>
+          <a href="#">📧</a>
+          <a href="#">f</a>
         </div>
       </div>
   
       <div class="footer-links">
-        @for (section of footerSections(); track section.title) {
-          <div class="link-col">
-            <h4>{{ section.title }}</h4>
-            @for (link of section.links; track link.label) {
-              <a [href]="link.href">{{ link.label }}</a>
-            }
-          </div>
-        }
+  
+        <div class="link-col">
+          <h4>About</h4>
+          <a href="#">Our Sorry</a>
+          
+        </div>
+  
+        <div class="link-col">
+          <h4>Legal</h4>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy Policy</a>
+         
+        </div>
   
         <div class="link-col">
           <h4>Contact</h4>
-          <a [href]="'mailto:' + email()">{{ email() }}</a>
-          <a [href]="'tel:' + phone()">{{ phone() }}</a>
-          <span class="address">{{ address() }}</span>
+          <a href="mailto:hello@shopwave.com">homeplug@11.com</a>
+          <a href="tel:+27210001234">+27 21 000 1234</a>
+          <span>South Africa</span>
         </div>
+  
       </div>
   
     </div>
   
     <div class="footer-bottom">
-      <span class="copy">{{ copyright() }} — All rights reserved.</span>
-      <span class="heart">Crafted with ♥ in Cape Town</span>
+      <span>© 2026 HomePlug. All rights reserved.</span>
+      <span>Crafted with ♥ in Gauteng</span>
     </div>
   </footer>

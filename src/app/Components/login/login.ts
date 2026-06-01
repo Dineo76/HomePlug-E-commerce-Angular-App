@@ -27,7 +27,10 @@ export class LoginComponent {
 
         localStorage.setItem(
           'user',
-          JSON.stringify(userCredential.user)
+          JSON.stringify({
+            uid: userCredential.user.uid,
+            email: userCredential.user.email
+          })
         );
 
   alert('Login successful');

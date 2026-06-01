@@ -1,6 +1,18 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  signal,
+  computed
+} from '@angular/core';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class AuthState {}
+export class AuthStateService {
+
+  user = signal<any | null>(null);
+
+  isLoggedIn = computed(() =>
+    this.user() !== null
+  );
+
+}

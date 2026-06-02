@@ -16,6 +16,9 @@ export class LoginComponent {
 
   email = '';
   password = '';
+  emailError = '';
+  passwordError = '';
+  generalError = '';
   @Output() closeModal = new EventEmitter<void>();
   @Output() successLogin = new EventEmitter<void>();
 
@@ -29,13 +32,37 @@ export class LoginComponent {
     this.closeModal.emit();
   }
 
+  private resetErrors(): void {
+    this.emailError = '';
+    this.passwordError = '';
+    this.generalError = '';
+  }
+
+  private validate(): boolean {
+    this.resetErrors();
+
+    if (!this.email.trim()) {
+      this.emailError = 'Email is required.';
+    }
+
+    if (!this.password) {
+      this.passwordError = 'Password is required.';
+    } else if (this.password.length < 5) {
+      this.passwordError = 'Password must be at least 5 characters long.';
+    }
+
+    return !this.emailError && !this.passwordError;
+  }
+
   login() {
+    if (!this.validate()) {
+      return;
+    }
 
     this.authService
       .login(this.email, this.password)
 
       .then((userCredential) => {
-
         const uid = userCredential.user.uid;
 
         if (typeof localStorage !== 'undefined') {
@@ -58,16 +85,13 @@ export class LoginComponent {
           this.storageService.loadWishlist(uid)
         );
 
-        alert('Login successful');
+        this.resetErrors();
         this.successLogin.emit();
       })
 
       .catch((error) => {
-
         console.error(error);
-
-        alert(error.message);
-
+        this.generalError = error?.message || 'Login failed. Please try again.';
       });
   }
 }

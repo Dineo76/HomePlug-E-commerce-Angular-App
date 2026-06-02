@@ -26,20 +26,26 @@
 
     <form (ngSubmit)="register()">
       <div class="name-row">
-        <input
-          type="text"
-          placeholder="First Name"
-          [(ngModel)]="firstName"
-          name="firstName"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          [(ngModel)]="lastName"
-          name="lastName"
-          required
-        />
+        <div class="field-group">
+          <input
+            type="text"
+            placeholder="First Name"
+            [(ngModel)]="firstName"
+            name="firstName"
+            required
+          />
+          <div class="error-text" *ngIf="firstNameError">{{ firstNameError }}</div>
+        </div>
+        <div class="field-group">
+          <input
+            type="text"
+            placeholder="Last Name"
+            [(ngModel)]="lastName"
+            name="lastName"
+            required
+          />
+          <div class="error-text" *ngIf="lastNameError">{{ lastNameError }}</div>
+        </div>
       </div>
 
       <input
@@ -49,6 +55,7 @@
         name="email"
         required
       />
+      <div class="error-text" *ngIf="emailError">{{ emailError }}</div>
 
       <input
         type="password"
@@ -57,10 +64,12 @@
         name="password"
         required
       />
+      <div class="error-text" *ngIf="passwordError">{{ passwordError }}</div>
 
       <button type="submit">
         Create Account
       </button>
+      <div class="error-text" *ngIf="generalError">{{ generalError }}</div>
     </form>
 
     <div class="login-redirect">

@@ -16,6 +16,11 @@ export class RegisterComponent {
   password = '';
   firstName = '';
   lastName = '';
+  emailError = '';
+  passwordError = '';
+  firstNameError = '';
+  lastNameError = '';
+  generalError = '';
   @Output() closeModal = new EventEmitter<void>();
   @Output() successRegister = new EventEmitter<void>();
 
@@ -25,7 +30,42 @@ export class RegisterComponent {
     this.closeModal.emit();
   }
 
+  private resetErrors(): void {
+    this.emailError = '';
+    this.passwordError = '';
+    this.firstNameError = '';
+    this.lastNameError = '';
+    this.generalError = '';
+  }
+
+  private validate(): boolean {
+    this.resetErrors();
+
+    if (!this.firstName.trim()) {
+      this.firstNameError = 'First name is required.';
+    }
+
+    if (!this.lastName.trim()) {
+      this.lastNameError = 'Last name is required.';
+    }
+
+    if (!this.email.trim()) {
+      this.emailError = 'Email is required.';
+    }
+
+    if (!this.password) {
+      this.passwordError = 'Password is required.';
+    } else if (this.password.length < 5) {
+      this.passwordError = 'Password must be at least 5 characters long.';
+    }
+
+    return !this.firstNameError && !this.lastNameError && !this.emailError && !this.passwordError;
+  }
+
   register() {
+    if (!this.validate()) {
+      return;
+    }
 
     this.authService
       .register(this.email, this.password)
@@ -45,12 +85,12 @@ export class RegisterComponent {
           );
         }
 
-        alert('Registration successful');
+        this.resetErrors();
         this.successRegister.emit();
       })
 
       .catch((error) => {
-        alert(error.message);
+        this.generalError = error?.message || 'Registration failed. Please try again.';
       });
   }
 }

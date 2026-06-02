@@ -24,6 +24,8 @@ export class Header {
   userId = '';
   userFirstName = '';
   userLastName = '';
+  toastMessage: string | null = null;
+  private toastTimer = 2000;
 
   constructor(
     private authService: AuthService,
@@ -89,11 +91,26 @@ export class Header {
     this.showLoginModal = false;
     this.showProfileModal = false;
     this.checkLoginStatus();
+    this.showToast('Logged in successfully');
   }
 
   handleRegisterSuccess() {
     this.showRegisterModal = false;
     this.showLoginModal = true;
+    this.showToast('Registration complete. Please sign in.');
+  }
+
+  private showToast(message: string) {
+    this.toastMessage = message;
+
+    if (this.toastTimer) {
+      window.clearTimeout(this.toastTimer);
+    }
+
+    this.toastTimer = window.setTimeout(() => {
+      this.toastMessage = null;
+      this.toastTimer = 0;
+    }, 2000);
   }
 
   onShowLogin() {
@@ -140,6 +157,7 @@ export class Header {
         this.userFirstName = '';
         this.userLastName = '';
         this.showProfileModal = false;
+        this.showToast('Logged out successfully');
         this.router.navigate(['/']);
 
       })

@@ -30,6 +30,7 @@
       name="email"
       required
     />
+    <div class="error-text" *ngIf="emailError">{{ emailError }}</div>
 
     <input
       type="password"
@@ -38,10 +39,12 @@
       name="password"
       required
     />
+    <div class="error-text" *ngIf="passwordError">{{ passwordError }}</div>
 
     <button type="submit">
       Login
     </button>
+    <div class="error-text" *ngIf="generalError">{{ generalError }}</div>
   </form>
 
   <p>

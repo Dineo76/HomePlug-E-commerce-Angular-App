@@ -5,6 +5,8 @@ import { ProfileModal } from '../Components/profile-modal/profile-modal';
 import { LoginComponent } from '../Components/login/login';
 import { RegisterComponent } from '../Components/register/register';
 import { CommonModule } from '@angular/common';
+import { ProductsService } from '../services/product-services';
+import { StorageService } from '../services/storage';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -25,7 +27,10 @@ export class Header {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private productsService: ProductsService,
+    private storageService: StorageService
+
   ) {this.checkLoginStatus();
 
     }
@@ -90,9 +95,28 @@ export class Header {
 
 
   logout() {
+    if (this.userId) {
+
+    this.storageService.saveCart(
+      this.userId,
+      this.productsService.cart()
+    );
+
+    this.storageService.saveWishlist(
+      this.userId,
+      this.productsService.wishlist()
+    );
+
+  }
+
+
    this.authService.logout()
 
       .then(() => {
+
+        this.productsService.cart.set([]);
+        this.productsService.wishlist.set([]);
+
         if (typeof localStorage !== 'undefined') {
           localStorage.removeItem('user');
         }

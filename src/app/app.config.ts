@@ -20,6 +20,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http'; // Added wi
 
 export const appConfig: ApplicationConfig = {
   providers: [
+
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes), 
     provideClientHydration(withEventReplay()),

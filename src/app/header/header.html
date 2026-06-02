@@ -17,20 +17,29 @@
   </div>
 
   <div class="nav-links">
-    <a routerLink="/">Home</a>
-    <a href="#">Products</a>
+    <a routerLink="/" routerLinkActive="active-link">Home</a>
+    <a routerLink="/products" routerLinkActive="active-link">Products</a>
     <a href="#">About Us</a>
     <a routerLink="faqs">FAQS</a>
   </div>
 
-  <div class="icons">
-    <div class="icon">
-      <span><p>🛍️ Cart</p></span>
-    </div>
+    <div class="icons">
 
-    <div class="icon">
-      <span><p>❤️ Wishlist</p></span>
+      <div class="icon" (click)="productService.openCart()">
+        <span>
+          <p>🛍️ Cart ({{ productService.cartTotal() }})</p>
+        </span>
+      </div>
+    
+      <div class="icon" (click)="productService.openWishlist()">
+        <span>
+          <p>❤️ Wishlist ({{ productService.wishlist().length }})</p>
+        </span>
+      </div>
+    
     </div>
+    
+ 
 
     <div class="icon profile">         
       <div class="avatar">
@@ -41,6 +50,6 @@
       <p>Profile</p>
     </div>
 
-  </div>
+
 
 </nav>

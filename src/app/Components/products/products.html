@@ -42,6 +42,9 @@
     </div>
 
   </div>
+  <div *ngIf="filteredProducts().length === 0">
+  No products found 😔
+</div>
 
   <!-- PRODUCTS GRID -->
   <div class="products-container">

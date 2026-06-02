@@ -12,6 +12,7 @@ import { ProductsService } from '../Services/product-services';
 })
 export class Header {
   private router = inject(Router);
+  productService = inject(ProductsService);
   searchTerm: string = '';
 
   searchProducts() {
@@ -20,7 +21,7 @@ export class Header {
       return;
     }
 
-    this.router.navigate(['/'], {
+    this.router.navigate(['/products'], {
       queryParams: { q: query },
       queryParamsHandling: 'merge',
     });

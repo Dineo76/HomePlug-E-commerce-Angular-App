@@ -17,6 +17,26 @@ export class ProductsService {
   cart = signal<any[]>([]);
   wishlist = signal<any[]>([]);
 
+  /* UI STATE (SINGLE SOURCE OF TRUTH FOR MODALS) */
+showCart = signal(false);
+showWishlist = signal(false);
+
+openCart() {
+  this.showCart.set(true);
+}
+
+closeCart() {
+  this.showCart.set(false);
+}
+
+openWishlist() {
+  this.showWishlist.set(true);
+}
+
+closeWishlist() {
+  this.showWishlist.set(false);
+}
+
   /* HOMEWARE CATEGORIES
      (USED FOR FILTERING UI)*/
 
@@ -27,6 +47,7 @@ export class ProductsService {
     { label: 'Kitchen', value: 'kitchen-accessories' }
   ]);
 
+  
   /*CART TOTALS*/
 
   cartTotal = computed(() =>

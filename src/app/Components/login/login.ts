@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { ProductsService } from '../../services/products';
+import { StorageService } from '../../services/storage';
 
 import { AuthService } from '../../services/auth';
 
@@ -16,7 +18,11 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private storageService: StorageService,
+    private productsService: ProductsService
+  ) {}
 
   login() {
 
@@ -25,15 +31,25 @@ export class LoginComponent {
 
       .then((userCredential) => {
 
+        const uid = userCredential.user.uid;
+
         localStorage.setItem(
           'user',
           JSON.stringify({
-            uid: userCredential.user.uid,
+            uid,
             email: userCredential.user.email
           })
         );
 
-  alert('Login successful');
+        this.productsService.cart.set(
+          this.storageService.loadCart(uid)
+        );
+
+        this.productsService.wishlist.set(
+          this.storageService.loadWishlist(uid)
+        );
+
+        alert('Login successful');
       })
 
       .catch((error) => {

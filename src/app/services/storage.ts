@@ -1,39 +1,33 @@
 import { Injectable } from '@angular/core';
-import { AppState } from '../models/app-state';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  private getKey(uid: string): string {
-    return `app_state_${uid}`;
-  }
-
-  saveState(uid: string, state: AppState): void {
+  saveCart(uid: string, cart: any[]) {
     localStorage.setItem(
-      this.getKey(uid),
-      JSON.stringify(state)
+      `cart_${uid}`,
+      JSON.stringify(cart)
     );
   }
 
-  loadState(uid: string): AppState {
+  loadCart(uid: string): any[] {
+    const data = localStorage.getItem(`cart_${uid}`);
 
-    const savedState = localStorage.getItem(
-      this.getKey(uid)
-    );
-
-    if (savedState) {
-      return JSON.parse(savedState);
-    }
-
-    return {
-      cart: [],
-      wishlist: []
-    };
+    return data ? JSON.parse(data) : [];
   }
 
-  removeState(uid: string): void {
-    localStorage.removeItem(this.getKey(uid));
+  saveWishlist(uid: string, wishlist: any[]) {
+    localStorage.setItem(
+      `wishlist_${uid}`,
+      JSON.stringify(wishlist)
+    );
+  }
+
+  loadWishlist(uid: string): any[] {
+    const data = localStorage.getItem(`wishlist_${uid}`);
+
+    return data ? JSON.parse(data) : [];
   }
 }

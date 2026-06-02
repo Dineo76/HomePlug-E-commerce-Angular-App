@@ -9,42 +9,37 @@
       </div>
     }
 
-    <h1>Furniture Collection</h1>
-    <p>Modern furniture for every home</p>
+    <h1>Home & Living Collection</h1>
+    <p>Everything you need to create a stylish and comfortable home</p>
 
-    
-   <!-- CATEGORY FILTER -->
-<div class="category-filters">
+    <!-- CATEGORY FILTER -->
+    <div class="category-filters">
 
-  <button
-    class="stat-btn"
-    (click)="selectedCategory.set('all')"
-    [class.active-category]="selectedCategory() === 'all'">
-    All
-  </button>
+      <button class="stat-btn"
+        (click)="selectedCategory.set('all')"
+        [class.active-category]="selectedCategory() === 'all'">
+        All
+      </button>
 
-  <button
-    class="stat-btn"
-    (click)="selectedCategory.set('furniture')"
-    [class.active-category]="selectedCategory() === 'furniture'">
-    Furniture
-  </button>
+      <button class="stat-btn"
+        (click)="selectedCategory.set('furniture')"
+        [class.active-category]="selectedCategory() === 'furniture'">
+        Furniture
+      </button>
 
-  <button
-    class="stat-btn"
-    (click)="selectedCategory.set('home-decoration')"
-    [class.active-category]="selectedCategory() === 'home-decoration'">
-    Home Decor
-  </button>
+      <button class="stat-btn"
+        (click)="selectedCategory.set('home-decoration')"
+        [class.active-category]="selectedCategory() === 'home-decoration'">
+        Home Decor
+      </button>
 
-  <button
-    class="stat-btn"
-    (click)="selectedCategory.set('kitchen-accessories')"
-    [class.active-category]="selectedCategory() === 'kitchen-accessories'">
-    Kitchen
-  </button>
+      <button class="stat-btn"
+        (click)="selectedCategory.set('kitchen-accessories')"
+        [class.active-category]="selectedCategory() === 'kitchen-accessories'">
+        Kitchen
+      </button>
 
-</div>
+    </div>
 
     <!-- CART + WISHLIST -->
     <div class="stats">
@@ -59,7 +54,6 @@
 
     </div>
 
-    <!-- TOTAL -->
     <h3>
       Total Price: R{{ cartTotalPrice() | number:'1.2-2' }}
     </h3>
@@ -84,9 +78,7 @@
           <h2>{{ product.title }}</h2>
           <p>{{ product.description }}</p>
 
-          <p class="price">
-            R{{ product.price }}
-          </p>
+          <p class="price">R{{ product.price }}</p>
 
           <div class="buttons">
 
@@ -118,7 +110,6 @@
         <button class="close-modal" (click)="closeModal()">✕</button>
 
         <h2>{{ selectedProduct().title }}</h2>
-
         <img [src]="selectedProduct().thumbnail">
 
         <p>{{ selectedProduct().description }}</p>
@@ -146,7 +137,8 @@
           </button>
 
           @if(cart().find(p => p.id === selectedProduct().id)) {
-            <button class="remove-btn" (click)="removeFromCart(selectedProduct())">
+            <button class="remove-btn"
+              (click)="removeFromCart(selectedProduct())">
               Remove From Cart
             </button>
           }
@@ -183,7 +175,6 @@
               <img [src]="item.thumbnail" class="cart-image">
 
               <div>
-
                 <h4>{{ item.title }}</h4>
                 <p>Qty: {{ item.quantity }}</p>
                 <p>R{{ item.price }} each</p>
@@ -196,7 +187,8 @@
 
             </div>
 
-            <button class="cart-remove-btn" (click)="removeFromCart(item)">
+            <button class="cart-remove-btn"
+              (click)="removeFromCart(item)">
               Remove
             </button>
 
@@ -218,44 +210,46 @@
   @if(showWishlist()) {
 
     <div class="modal-backdrop" (click)="closeWishlist()">
-
+  
       <div class="modal" (click)="$event.stopPropagation()">
-
-        <button class="close-modal" (click)="closeWishlist()">✕</button>
-
+  
+        <button class="close-modal" (click)="closeWishlist()">
+          ✕
+        </button>
+  
         <h2>Wishlist</h2>
-
+  
         @if(wishlist().length === 0) {
           <p>Your wishlist is empty.</p>
         }
-
+  
         @for(item of wishlist(); track item.id) {
-
+  
           <div class="cart-row">
-
+  
             <div class="cart-info">
-
+  
               <img [src]="item.thumbnail" class="cart-image">
-
+  
               <div>
                 <h4>{{ item.title }}</h4>
                 <p>R{{ item.price }}</p>
               </div>
-
+  
             </div>
-
-            <button class="cart-remove-btn" (click)="toggleWishlist(item)">
+  
+            <button class="cart-remove-btn"
+              (click)="toggleWishlist(item)">
               Remove
             </button>
-
+  
           </div>
-
+  
         }
-
+  
       </div>
-
+  
     </div>
-
+  
   }
-
 </section>

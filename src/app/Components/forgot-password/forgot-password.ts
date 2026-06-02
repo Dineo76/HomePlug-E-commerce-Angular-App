@@ -1,39 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {RouterLink } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, CommonModule],
   templateUrl: './forgot-password.html',
   styleUrls: ['./forgot-password.css']
 })
 export class ForgotPasswordComponent {
 
   email = '';
+  emailError = '';
+  generalError = '';
+
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() successReset = new EventEmitter<string>();
+  @Output() showLogin = new EventEmitter<void>();
 
   constructor(private authService: AuthService) {}
 
+  close() {
+    this.closeModal.emit();
+  }
+
+  openLogin() {
+    this.showLogin.emit();
+  }
+
+  private validate(): boolean {
+    this.emailError = '';
+    this.generalError = '';
+
+    if (!this.email.trim()) {
+      this.emailError = 'Email is required.';
+      return false;
+    }
+    return true;
+  }
+
   resetPassword() {
+    if (!this.validate()) {
+      return;
+    }
 
     this.authService
       .forgotPassword(this.email)
-
       .then(() => {
-
-        alert('Password reset email sent');
-
+        this.successReset.emit('Password reset email sent');
+        this.close();
       })
-
       .catch((error) => {
-
         console.error(error);
-
-        alert(error.message);
-
+        this.generalError = error?.message || 'Failed to send reset email. Please try again.';
       });
   }
 }

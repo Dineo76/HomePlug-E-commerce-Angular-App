@@ -16,10 +16,10 @@
                 <path d="M11 24L9 28" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
             </svg>
         </div>
-        <p style="font-size: 0.85rem; color: #5b7342; margin-top: 12px; font-weight: 470;">Welcome to</p>
+        <p style="font-size: 0.85rem; color: #6f8b7a; margin-top: 12px; font-weight: 470;">Welcome to</p>
         <h1>HomePlug</h1>
         <div class="leaf-accent"></div>
-        <p style="font-size: 0.85rem; color: #5b7342; margin-top: 12px; font-weight: 470;">Power your home with ease</p>
+        <p style="font-size: 0.85rem; color: #6f8b7a; margin-top: 12px; font-weight: 470;">Power your home with ease</p>
     </div>
 
   <form (ngSubmit)="login()">
@@ -48,13 +48,13 @@
   </form>
 
   <p>
-    <a href="#" (click)="$event.preventDefault()">
+    <a href="#" (click)="$event.preventDefault(); openForgotPassword()">
         Forgot Password? 
     </a>
   </p>
 
   <div class="signup-option">
-    <span style="color: #53663e;">Don't have an account?</span>
+    <span style="color: #555;">Don't have an account?</span>
     <a href="#" (click)="$event.preventDefault(); close()" class="signup-link" style="text-decoration: none;">Sign up now →</a>
   </div>
 </div>

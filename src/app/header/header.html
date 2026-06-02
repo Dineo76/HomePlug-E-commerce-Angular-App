@@ -61,7 +61,8 @@
 <app-login 
   *ngIf="showLoginModal"
   (closeModal)="closeLoginModal()"
-  (successLogin)="handleLoginSuccess()">
+  (successLogin)="handleLoginSuccess()"
+  (showForgotPassword)="onShowForgotPassword()">
 </app-login>
 
 <app-register 
@@ -69,3 +70,10 @@
   (closeModal)="closeRegisterModal()"
   (successRegister)="handleRegisterSuccess()">
 </app-register>
+
+<app-forgot-password
+  *ngIf="showForgotPasswordModal"
+  (closeModal)="closeForgotPasswordModal()"
+  (showLogin)="onShowLoginFromForgot()"
+  (successReset)="handleForgotPasswordSuccess($event)">
+</app-forgot-password>

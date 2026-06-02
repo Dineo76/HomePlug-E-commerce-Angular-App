@@ -21,6 +21,11 @@ export class LoginComponent {
   generalError = '';
   @Output() closeModal = new EventEmitter<void>();
   @Output() successLogin = new EventEmitter<void>();
+  @Output() showForgotPassword = new EventEmitter<void>();
+
+  openForgotPassword() {
+    this.showForgotPassword.emit();
+  }
 
   constructor(
     private authService: AuthService,

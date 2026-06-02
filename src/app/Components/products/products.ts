@@ -20,12 +20,18 @@ export class Products implements OnInit {
   selectedProduct = signal<any | null>(null);
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
+  private toastTimer: any = null;
 
   showToast(message: string) {
     this.toastMessage.set(message);
   
-    setTimeout(() => {
+    if (this.toastTimer) {
+      clearTimeout(this.toastTimer);
+    }
+
+    this.toastTimer = setTimeout(() => {
       this.toastMessage.set(null);
+      this.toastTimer = null;
     }, 2000);
   }
   

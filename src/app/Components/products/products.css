@@ -130,6 +130,7 @@
   font-size: 22px;
   font-weight: bold;
   color: #6f8b7a;
+  
 }
 
 /* CARD BUTTONS */
@@ -350,7 +351,8 @@
 
 .cart-info p {
   margin: 4px 0;
-  color: #666;
+  /* color: #666; */
+  color: #6f8b7a;
   font-size: 14px;
 }
 
@@ -483,37 +485,75 @@ button {
   transform: translateY(-2px);
 }
 
-/* CHECKOUT BUTTON STYLES - ADD THIS AT THE END OF YOUR CSS FILE */
+/* CHECKOUT BUTTON IN CART MODAL - Professional Sage Green Design */
+.checkout-from-cart-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #6f8b7a 0%, #5d7465 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(93, 116, 101, 0.25);
+}
 
-.checkout-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    font-size: 14px;
-  }
-  
-  .checkout-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46a0 100%);
-  }
-  
-  .checkout-btn:disabled {
-    background: #9ca3af;
-    cursor: not-allowed;
-    transform: none;
-    opacity: 0.6;
-  }
-  
-  /* Additional responsive style for checkout button */
-  @media (max-width: 768px) {
-    .checkout-btn {
-      width: 100%;
-      margin-top: 5px;
-    }
-  }
+/* Button Hover Effect */
+.checkout-from-cart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(93, 116, 101, 0.35);
+  background: linear-gradient(135deg, #5d7465 0%, #4a5f53 100%);
+}
+
+/* Button Active/Pressed Effect */
+.checkout-from-cart-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(93, 116, 101, 0.25);
+}
+
+/* Shine Effect on Hover */
+.checkout-from-cart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.checkout-from-cart-btn:hover::before {
+  left: 100%;
+}
+
+/* Disabled State */
+.checkout-from-cart-btn:disabled {
+  background: linear-gradient(135deg, #b9c7bf 0%, #a0b3a8 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0.7;
+}
+
+/* Add an icon before the text */
+.checkout-from-cart-btn::after {
+  content: "💳";
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.checkout-from-cart-btn:hover::after {
+  transform: translateX(3px);
+}

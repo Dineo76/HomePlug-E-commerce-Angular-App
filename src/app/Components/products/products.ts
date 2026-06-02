@@ -64,19 +64,25 @@ export class Products implements OnInit {
     this.selectedProduct.set(null);
   }
 
-  /* CHECKOUT */
+  /* CHECKOUT METHODS */
   openCheckout() {
-    if (this.cart().length === 0) {
-      this.showToast('Your cart is empty! 🛒');
-      return;
-    }
-    this.showCheckout.set(true);
+    // First close the cart modal
+    this.closeCart();
+    
+    // Small delay to allow cart modal to close smoothly
+    setTimeout(() => {
+      if (this.cart().length === 0) {
+        this.showToast('Your cart is empty! 🛒');
+        return;
+      }
+      this.showCheckout.set(true);
+    }, 200);
   }
-  
+
   closeCheckout() {
     this.showCheckout.set(false);
   }
-  
+
   handlePaymentSuccess() {
     this.showToast('Payment successful! Thank you for your purchase! 🎉');
     this.productService.cart.set([]);

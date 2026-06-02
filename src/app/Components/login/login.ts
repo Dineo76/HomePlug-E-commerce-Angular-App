@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ProductsService } from '../../services/products';
+import { ProductsService } from '../../Services/product-services';
 import { StorageService } from '../../services/storage';
 
 import { AuthService } from '../../services/auth';

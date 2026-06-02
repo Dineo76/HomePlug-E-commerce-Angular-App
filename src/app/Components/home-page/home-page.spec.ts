@@ -1,22 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ProductService } from '../../Services/home-service';
 
-import { HomePage } from './home-page';
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './home-page.html',
+  styleUrls: ['./home-page.css']
+})
+export class HomePage implements OnInit {
+  productService = inject(ProductService);
+  products = this.productService.productSig;
 
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HomePage],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(HomePage);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  ngOnInit() {
+    this.productService.getProducts();
+  }
+}

@@ -1,10 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, FormsModule],
   templateUrl: './header.html',
-  styleUrls: ['./header.css'],
+  styleUrls: ['./header.css']
 })
-export class Header {}
+export class Header {
+  private router = inject(Router);
+  searchTerm: string = '';
+
+  searchProducts() {
+    const query = this.searchTerm.trim();
+    if (!query) {
+      return;
+    }
+
+    this.router.navigate(['/'], {
+      queryParams: { q: query },
+      queryParamsHandling: 'merge',
+    });
+  }
+}

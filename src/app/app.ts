@@ -1,13 +1,17 @@
 import { Component, signal } from '@angular/core';
-import { FAQs } from "./Components/faqs/faqs";
+
+import { RouterOutlet } from '@angular/router';
+import { Header } from './header/header';
+import { Products } from './Components/products/products';
+import { FooterComponent } from './footer/footer';
+import { FAQs } from './Components/faqs/faqs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FAQs],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrls: ['./app.css'],
+  imports: [RouterOutlet, Header, Products, FooterComponent,],
 })
-export class App {
-  protected readonly title = signal('HomePlug-App');
-}
+
+export class App {}

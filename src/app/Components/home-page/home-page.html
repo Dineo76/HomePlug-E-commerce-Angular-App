@@ -1,1 +1,61 @@
-<p>home-page works!</p>
+<!-- <h2>🔥 In Demand Furniture</h2>
+
+<div class="row">
+  <div class="card" *ngFor="let p of inDemand">
+
+    <p>{{ p.description }}</p>
+    <p><b>R {{ p.price }}</b></p>
+
+  </div>
+</div>
+
+<h2>💸 50% OFF Deals</h2>
+
+<div class="row">
+  <div class="card sale" *ngFor="let p of halfOff">
+
+    <p>{{ p.description }}</p>
+    <p><b>R {{ p.price }}</b></p>
+
+  </div>
+</div> -->
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">New Collection 2026</span>
+    <h1>Elevate Your <br> <span>Living Space</span></h1>
+    <p>Discover curated homeware essentials — furniture, kitchen accessories and décor crafted for modern living.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">Shop Now</a>
+      
+    </div>
+  </div>
+</section>
+
+
+<div class="title-wrapper">
+  <span class="title-line"></span>
+  <h2 class="section-title">Featured Products</h2>
+  <span class="title-line"></span>
+</div>
+
+<p *ngIf="searchQuery() && filteredProducts().length === 0" class="no-results">
+  No products found for "{{ searchQuery() }}".
+</p>
+
+<div class="grid">
+  @for (product of filteredProducts(); track product.id) {
+    <div class="card">
+      <img [src]="product.thumbnail" [alt]="product.title" />
+      <div class="card-body">
+        <span class="card-category">{{ product.category }}</span>
+        <h3>{{ product.title }}</h3>
+        <p class="price">
+          R{{ product.price }}
+          <span>incl. tax</span>
+        </p>
+      </div>
+    </div>
+  }
+</div>

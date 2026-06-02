@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ProductsService } from '../../Services/product-services';
+import { ProductsService } from '../../services/product-services';
 import { StorageService } from '../../services/storage';
 
 import { AuthService } from '../../services/auth';
@@ -33,13 +33,15 @@ export class LoginComponent {
 
         const uid = userCredential.user.uid;
 
-        localStorage.setItem(
-          'user',
-          JSON.stringify({
-            uid,
-            email: userCredential.user.email
-          })
-        );
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              uid,
+              email: userCredential.user.email
+            })
+          );
+        }
 
         this.productsService.cart.set(
           this.storageService.loadCart(uid)

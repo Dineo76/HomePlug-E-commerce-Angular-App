@@ -25,7 +25,21 @@ export class RegisterComponent {
     this.authService
       .register(this.email, this.password)
 
-      .then(() => {
+      .then((userCredential) => {
+        const uid = userCredential.user.uid;
+
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              uid,
+              email: this.email,
+              firstName: this.firstName,
+              lastName: this.lastName
+            })
+          );
+        }
+
         alert('Registration successful');
       })
 

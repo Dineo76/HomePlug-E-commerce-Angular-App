@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
       initializeApp(environment.firebase)
     ),
 
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
 
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),

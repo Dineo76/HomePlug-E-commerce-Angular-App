@@ -1,6 +1,6 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '../../Services/product-services';
+import { ProductsService } from '../../services/product-services';
 
 @Component({
   selector: 'app-products',

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../Services/home-service';
+import { ProductService } from '../../services/home-service';
 
 @Component({
   selector: 'app-home',

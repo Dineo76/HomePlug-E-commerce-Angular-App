@@ -10,7 +10,6 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 export const routes: Routes = [
   { path: '', component: HomePage },
   { path: 'product/:id', component: ProductDetails },
-  { path: '', redirectTo: 'products', pathMatch: 'full' },
   { path: 'products', component: Products },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },

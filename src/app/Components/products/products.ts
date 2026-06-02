@@ -1,21 +1,15 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
+import { CheckoutComponent } from '../checkout/checkout';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-<<<<<<< HEAD
-  imports: [],
-=======
-  imports: [CommonModule],
->>>>>>> 3090a56ba38b785cb36bd2f9b76c1a02cb330ac5
+  imports: [CommonModule, CheckoutComponent],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
-<<<<<<< HEAD
-export class Products {}
-=======
 export class Products implements OnInit {
 
   productService = inject(ProductsService);
@@ -27,6 +21,7 @@ export class Products implements OnInit {
   selectedProduct = signal<any | null>(null);
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
+  showCheckout = signal(false);
 
   showToast(message: string) {
     this.toastMessage.set(message);
@@ -67,6 +62,25 @@ export class Products implements OnInit {
 
   closeModal() {
     this.selectedProduct.set(null);
+  }
+
+  /* CHECKOUT */
+  openCheckout() {
+    if (this.cart().length === 0) {
+      this.showToast('Your cart is empty! 🛒');
+      return;
+    }
+    this.showCheckout.set(true);
+  }
+  
+  closeCheckout() {
+    this.showCheckout.set(false);
+  }
+  
+  handlePaymentSuccess() {
+    this.showToast('Payment successful! Thank you for your purchase! 🎉');
+    this.productService.cart.set([]);
+    this.closeCheckout();
   }
 
   /* CATEGORY FILTER */
@@ -148,4 +162,3 @@ export class Products implements OnInit {
     return this.productService.cartTotalPrice();
   }
 }
->>>>>>> 3090a56ba38b785cb36bd2f9b76c1a02cb330ac5

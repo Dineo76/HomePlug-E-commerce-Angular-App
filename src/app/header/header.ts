@@ -2,17 +2,21 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth';
 import { ProfileModal } from '../Components/profile-modal/profile-modal';
+import { LoginComponent } from '../Components/login/login';
+import { RegisterComponent } from '../Components/register/register';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, CommonModule, ProfileModal],
+  imports: [RouterLink, CommonModule, ProfileModal, LoginComponent, RegisterComponent],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class Header {
 
   showProfileModal = false;
+  showLoginModal = false;
+  showRegisterModal = false;
   isLoggedIn = false;
   userEmail = '';
   userId = '';
@@ -55,6 +59,35 @@ export class Header {
     this.showProfileModal = false;
   }
 
+  closeLoginModal() {
+    this.showLoginModal = false;
+  }
+
+  closeRegisterModal() {
+    this.showRegisterModal = false;
+  }
+
+  handleLoginSuccess() {
+    this.showLoginModal = false;
+    this.showProfileModal = false;
+    this.checkLoginStatus();
+  }
+
+  handleRegisterSuccess() {
+    this.showRegisterModal = false;
+    this.showLoginModal = true;
+  }
+
+  onShowLogin() {
+    this.showProfileModal = false;
+    this.showLoginModal = true;
+  }
+
+  onShowRegister() {
+    this.showProfileModal = false;
+    this.showRegisterModal = true;
+  }
+
 
   logout() {
    this.authService.logout()
@@ -69,7 +102,8 @@ export class Header {
         this.userId = '';
         this.userFirstName = '';
         this.userLastName = '';
-        this.router.navigate(['/login']);
+        this.showProfileModal = false;
+        this.router.navigate(['/']);
 
       })
 

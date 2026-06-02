@@ -1,4 +1,8 @@
-<div class="login-container">
+<div class="login-overlay-wrapper">
+  <div class="overlay-backdrop" (click)="close()"></div>
+  <div class="login-container">
+    <button class="close-modal-btn" (click)="close()">×</button>
+    
     <div class="welcome-banner">
         <div class="brand-icon">
             <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,13 +45,14 @@
   </form>
 
   <p>
-    <a routerLink="/forgot-password">
+    <a href="#" (click)="$event.preventDefault()">
         Forgot Password? 
     </a>
   </p>
 
   <div class="signup-option">
     <span style="color: #53663e;">Don't have an account?</span>
-    <a routerLink="/register" class="signup-link" style="text-decoration: none;">Sign up now →</a>
+    <a href="#" (click)="$event.preventDefault(); close()" class="signup-link" style="text-decoration: none;">Sign up now →</a>
   </div>
+</div>
 </div>

@@ -6,14 +6,34 @@
     }
 
     :host {
+      display: block;
+    }
+
+    .login-overlay-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       display: grid;
       place-items: center;
-      min-height: 100vh;
-      width: 100%;
+      z-index: 9999;
       padding: 1.5rem;
     }
 
+    .overlay-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
     .login-container {
+      position: relative;
+      z-index: 2;
       max-width: 480px;
       width: 100%;
       background: #ffffff;
@@ -23,6 +43,32 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       display: flex;
       flex-direction: column;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .close-modal-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: #6a7c54;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s ease;
+    }
+
+    .close-modal-btn:hover {
+      background: rgba(106, 124, 84, 0.1);
     }
 
     .login-container:hover {

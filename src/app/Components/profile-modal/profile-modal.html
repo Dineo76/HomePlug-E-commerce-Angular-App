@@ -43,7 +43,7 @@
             </div>
             <h3>Welcome to HomePlug!</h3>
             <p>Please log in to access your profile, wishlist and order history.</p>
-            <button class="login-btn" routerLink="/login" (click)="close()">
+            <button class="login-btn" (click)="openLogin()">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
                 <polyline points="10 17 15 12 10 7"/>
@@ -53,7 +53,7 @@
             </button>
             <p class="signup-text">
               Don't have an account? 
-              <a routerLink="/register" (click)="close()">Sign up here</a>
+              <a (click)="openRegister()" style="cursor: pointer; color: #5b7342; font-weight: 600;">Sign up here</a>
             </p>
           </div>
         </ng-template>

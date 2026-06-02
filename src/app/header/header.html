@@ -49,5 +49,19 @@
   [userFirstName]="userFirstName"
   [userLastName]="userLastName"
   (closeModal)="closeProfileModal()"
-  (logoutEvent)="logout()">
+  (logoutEvent)="logout()"
+  (showLogin)="onShowLogin()"
+  (showRegister)="onShowRegister()">
 </app-profile-modal>
+
+<app-login 
+  *ngIf="showLoginModal"
+  (closeModal)="closeLoginModal()"
+  (successLogin)="handleLoginSuccess()">
+</app-login>
+
+<app-register 
+  *ngIf="showRegisterModal"
+  (closeModal)="closeRegisterModal()"
+  (successRegister)="handleRegisterSuccess()">
+</app-register>

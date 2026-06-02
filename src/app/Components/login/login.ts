@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { ProductsService } from '../../services/product-services';
 import { StorageService } from '../../services/storage';
-
 import { AuthService } from '../../services/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
@@ -17,12 +16,18 @@ export class LoginComponent {
 
   email = '';
   password = '';
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() successLogin = new EventEmitter<void>();
 
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
     private productsService: ProductsService
   ) {}
+
+  close() {
+    this.closeModal.emit();
+  }
 
   login() {
 
@@ -38,7 +43,9 @@ export class LoginComponent {
             'user',
             JSON.stringify({
               uid,
-              email: userCredential.user.email
+              email: userCredential.user.email,
+              firstName: '',
+              lastName: ''
             })
           );
         }
@@ -52,6 +59,7 @@ export class LoginComponent {
         );
 
         alert('Login successful');
+        this.successLogin.emit();
       })
 
       .catch((error) => {

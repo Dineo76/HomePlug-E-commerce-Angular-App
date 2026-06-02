@@ -7,11 +7,7 @@ import { ProductsService } from '../../Services/product-services';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './products.html',
-<<<<<<< HEAD
-  styleUrls: ['./products.css'],
-=======
   styleUrl: './products.css'
->>>>>>> 5d8f4c34e01437f706f71226dc8ddd79644cb248
 })
 export class Products implements OnInit {
 

@@ -1,5 +1,7 @@
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth';
+import { StorageService } from './storage';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class ProductsService {
 
   private http = inject(HttpClient);
+  private authService = inject(AuthService);
+  private storageService = inject(StorageService);
 
   /*PRODUCTS */
 
@@ -77,12 +81,14 @@ export class ProductsService {
 
       return [...items, { ...product, quantity: 1 }];
     });
+    this.saveCartForCurrentUser();
   }
 
   removeFromCart(product: any) {
     this.cart.update(items =>
       items.filter(p => p.id !== product.id)
     );
+    this.saveCartForCurrentUser();
   }
 
   /*WISHLIST LOGIC */
@@ -97,9 +103,31 @@ export class ProductsService {
 
       return [...items, product];
     });
+    this.saveWishlistForCurrentUser();
   }
 
   isWishlisted(product: any): boolean {
     return this.wishlist().some(p => p.id === product.id);
+  }
+
+  private getCurrentUserId(): string {
+    const user = this.authService.getUser();
+    return user?.uid || '';
+  }
+
+  private saveCartForCurrentUser(): void {
+    const uid = this.getCurrentUserId();
+    if (!uid) {
+      return;
+    }
+    this.storageService.saveCart(uid, this.cart());
+  }
+
+  private saveWishlistForCurrentUser(): void {
+    const uid = this.getCurrentUserId();
+    if (!uid) {
+      return;
+    }
+    this.storageService.saveWishlist(uid, this.wishlist());
   }
 }

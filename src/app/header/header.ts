@@ -31,9 +31,22 @@ export class Header {
     private productsService: ProductsService,
     private storageService: StorageService
 
-  ) {this.checkLoginStatus();
+  ) {
+    this.checkLoginStatus();
+    this.loadPersistedState();
+  }
 
+  private loadPersistedState() {
+    if (!this.userId) {
+      return;
     }
+
+    const storedCart = this.storageService.loadCart(this.userId);
+    const storedWishlist = this.storageService.loadWishlist(this.userId);
+
+    this.productsService.cart.set(storedCart);
+    this.productsService.wishlist.set(storedWishlist);
+  }
 
   checkLoginStatus() {
     if (typeof localStorage === 'undefined') {

@@ -49,8 +49,8 @@ export class CheckoutComponent {
     );
     
     if (success) {
-      // Show success toast notification
-      this.showSuccessMessage();
+      // Show custom toast
+      this.showCustomToast('Payment Successful!', 'Thank you for your purchase!', '#10b981');
       
       // Emit success to parent to clear cart
       this.onPaymentSuccess.emit();
@@ -63,7 +63,7 @@ export class CheckoutComponent {
       // If not successful, show error message
       const errorMsg = this.paymentService.paymentError();
       if (errorMsg) {
-        this.showErrorMessage(errorMsg);
+        this.showCustomToast('Payment Failed!', errorMsg, '#ef4444');
       }
     }
   }
@@ -73,43 +73,37 @@ export class CheckoutComponent {
     this.onClose.emit();
   }
   
-  // ADDED: Show success toast notification
-  showSuccessMessage() {
+  // Custom toast that definitely works
+  showCustomToast(title: string, message: string, color: string) {
+    // Create toast element
     const toast = document.createElement('div');
-    toast.className = 'checkout-toast success-toast';
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.right = '20px';
+    toast.style.backgroundColor = color;
+    toast.style.color = 'white';
+    toast.style.padding = '15px 20px';
+    toast.style.borderRadius = '8px';
+    toast.style.zIndex = '999999';
+    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+    toast.style.minWidth = '250px';
+    toast.style.fontFamily = 'Arial, sans-serif';
+    toast.style.animation = 'fadeInUp 0.3s ease';
     toast.innerHTML = `
-      <div class="toast-icon">✓</div>
-      <div class="toast-content">
-        <strong>Payment Successful!</strong>
-        <p>Thank you for your purchase. Your order has been confirmed.</p>
-      </div>
+      <strong style="display: block; margin-bottom: 5px;">${title}</strong>
+      <span style="font-size: 14px;">${message}</span>
     `;
+    
     document.body.appendChild(toast);
     
-    // Add remove animation and remove after 3 seconds
+    // Remove after 3 seconds 
     setTimeout(() => {
-      toast.classList.add('remove');
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
-  }
-  
-  // ADDED: Show error toast notification
-  showErrorMessage(message: string) {
-    const toast = document.createElement('div');
-    toast.className = 'checkout-toast error-toast';
-    toast.innerHTML = `
-      <div class="toast-icon">⚠️</div>
-      <div class="toast-content">
-        <strong>Payment Failed!</strong>
-        <p>${message}</p>
-      </div>
-    `;
-    document.body.appendChild(toast);
-    
-    // Add remove animation and remove after 3 seconds
-    setTimeout(() => {
-      toast.classList.add('remove');
-      setTimeout(() => toast.remove(), 300);
+      toast.style.animation = 'fadeOutDown 0.3s ease';
+      setTimeout(() => {
+        if (toast && toast.remove) {
+          toast.remove();
+        }
+      }, 300);
     }, 3000);
   }
 }

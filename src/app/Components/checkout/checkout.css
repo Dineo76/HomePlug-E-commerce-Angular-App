@@ -42,6 +42,10 @@
   border-radius: 10px;
 }
 
+.checkout-container::-webkit-scrollbar-thumb:hover {
+  background: #5d7465;
+}
+
 /* HEADER */
 .checkout-header {
   display: flex;
@@ -57,9 +61,14 @@
   margin: 0;
   font-size: 1.75rem;
   font-weight: 600;
-  color: #6f8b7a;
+  background: linear-gradient(135deg, #6f8b7a 0%, #5d7465 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
 }
 
+/* CLOSE BUTTON */
 .close-btn {
   background: #f0f4f1;
   border: none;
@@ -77,6 +86,7 @@
 
 .close-btn:hover {
   background: #e2ece6;
+  color: #4a5f53;
   transform: rotate(90deg);
 }
 
@@ -93,6 +103,7 @@
   margin-bottom: 2rem;
   text-align: center;
   border: 1px solid rgba(111, 139, 122, 0.3);
+  box-shadow: 0 2px 8px rgba(111, 139, 122, 0.1);
 }
 
 .total-amount h3 {
@@ -100,6 +111,12 @@
   color: #4a5f53;
   font-size: 1.25rem;
   font-weight: 500;
+  letter-spacing: -0.3px;
+}
+
+.total-amount h3::before {
+  content: "💰 ";
+  font-size: 1.3rem;
 }
 
 /* FORM GROUPS */
@@ -111,8 +128,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
+.form-row .form-group {
+  margin-bottom: 0;
+}
+
+/* LABELS */
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -123,6 +146,7 @@ label {
   letter-spacing: 0.5px;
 }
 
+/* INPUT FIELDS */
 .form-control {
   width: 100%;
   padding: 0.875rem 1rem;
@@ -131,6 +155,8 @@ label {
   font-size: 1rem;
   transition: all 0.2s ease;
   background: white;
+  color: #2c3e2f;
+  font-weight: 500;
   box-sizing: border-box;
 }
 
@@ -138,6 +164,12 @@ label {
   outline: none;
   border-color: #6f8b7a;
   box-shadow: 0 0 0 4px rgba(111, 139, 122, 0.15);
+  transform: translateY(-1px);
+}
+
+.form-control::placeholder {
+  color: #b9c7bf;
+  font-weight: 400;
 }
 
 /* PAY BUTTON */
@@ -152,36 +184,69 @@ label {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pay-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.pay-btn:hover::before {
+  left: 100%;
 }
 
 .pay-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(93, 116, 101, 0.4);
+  background: linear-gradient(135deg, #5d7465 0%, #4a5f53 100%);
+}
+
+.pay-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .pay-btn:disabled {
-  opacity: 0.7;
+  background: linear-gradient(135deg, #b9c7bf 0%, #a0b3a8 100%);
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* ERROR MESSAGE */
 .error-message {
-  background: #fee2e2;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
   color: #dc2626;
   padding: 0.875rem 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
   font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #fecaca;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* SUCCESS MESSAGE */
+.error-message::before {
+  content: "⚠️";
+  font-size: 1rem;
+}
+
+/* SUCCESS MESSAGE INSIDE MODAL */
 .success-message {
   text-align: center;
   padding: 2rem 1rem;
+  animation: bounceIn 0.5s ease;
 }
 
 .success-icon {
@@ -195,11 +260,21 @@ label {
   justify-content: center;
   font-size: 3rem;
   margin: 0 auto 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
+  animation: scaleCheck 0.3s ease 0.2s both;
 }
 
 .success-message h3 {
   color: #4a5f53;
   margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.success-message p {
+  color: #6b7280;
+  margin-bottom: 1.75rem;
+  font-size: 0.95rem;
 }
 
 .continue-btn {
@@ -211,11 +286,27 @@ label {
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+.continue-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(93, 116, 101, 0.3);
+  background: linear-gradient(135deg, #5d7465 0%, #4a5f53 100%);
+}
+
+/* SPINNER */
 .spinner {
   display: inline-block;
   animation: spin 1s linear infinite;
+}
+
+.spinner::before {
+  content: "⏳";
+  display: inline-block;
+  margin-right: 8px;
 }
 
 /* ANIMATIONS */
@@ -240,14 +331,42 @@ label {
   to { transform: rotate(360deg); }
 }
 
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleCheck {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* RESPONSIVE */
 @media (max-width: 640px) {
   .checkout-container {
     width: 95%;
+    max-height: 95vh;
   }
   
   .checkout-header {
     padding: 1rem 1.5rem;
+  }
+  
+  .checkout-header h2 {
+    font-size: 1.5rem;
   }
   
   .checkout-body {
@@ -258,9 +377,47 @@ label {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
+  
+  .total-amount h3 {
+    font-size: 1.1rem;
+  }
+  
+  .pay-btn {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+  
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+  
+  .success-message h3 {
+    font-size: 1.25rem;
+  }
 }
 
-/* Toast Notifications - ADD THIS AT THE END OF YOUR CHECKOUT.CSS */
+/* Hover effects for form groups */
+.form-group:hover .form-control {
+  border-color: #6f8b7a;
+}
+
+/* Focus visible for accessibility */
+.form-control:focus-visible {
+  outline: none;
+  border-color: #6f8b7a;
+  box-shadow: 0 0 0 4px rgba(111, 139, 122, 0.15);
+}
+
+/* Card input styling for better UX */
+input[type="text"] {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+/* TOAST NOTIFICATIONS - Popup messages at top right */
 .checkout-toast {
   position: fixed;
   top: 20px;

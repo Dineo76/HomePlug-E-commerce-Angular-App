@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1001;
   animation: fadeIn 0.3s ease;
 }
 
@@ -42,10 +42,6 @@
   border-radius: 10px;
 }
 
-.checkout-container::-webkit-scrollbar-thumb:hover {
-  background: #5d7465;
-}
-
 /* HEADER */
 .checkout-header {
   display: flex;
@@ -61,14 +57,9 @@
   margin: 0;
   font-size: 1.75rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #6f8b7a 0%, #5d7465 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
+  color: #6f8b7a;
 }
 
-/* CLOSE BUTTON */
 .close-btn {
   background: #f0f4f1;
   border: none;
@@ -86,7 +77,6 @@
 
 .close-btn:hover {
   background: #e2ece6;
-  color: #4a5f53;
   transform: rotate(90deg);
 }
 
@@ -103,7 +93,6 @@
   margin-bottom: 2rem;
   text-align: center;
   border: 1px solid rgba(111, 139, 122, 0.3);
-  box-shadow: 0 2px 8px rgba(111, 139, 122, 0.1);
 }
 
 .total-amount h3 {
@@ -111,12 +100,6 @@
   color: #4a5f53;
   font-size: 1.25rem;
   font-weight: 500;
-  letter-spacing: -0.3px;
-}
-
-.total-amount h3::before {
-  content: "💰 ";
-  font-size: 1.3rem;
 }
 
 /* FORM GROUPS */
@@ -124,20 +107,12 @@
   margin-bottom: 1.25rem;
 }
 
-/* FORM ROW - FIXED SPACING BETWEEN EXPIRY DATE AND CVV */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;  /* INCREASED SPACING between expiry date and CVV */
-  margin-bottom: 0.5rem;
+  gap: 1.5rem;
 }
 
-/* Individual form group inside form row */
-.form-row .form-group {
-  margin-bottom: 0;
-}
-
-/* LABELS */
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -148,7 +123,6 @@ label {
   letter-spacing: 0.5px;
 }
 
-/* INPUT FIELDS */
 .form-control {
   width: 100%;
   padding: 0.875rem 1rem;
@@ -157,8 +131,6 @@ label {
   font-size: 1rem;
   transition: all 0.2s ease;
   background: white;
-  color: #2c3e2f;
-  font-weight: 500;
   box-sizing: border-box;
 }
 
@@ -166,12 +138,6 @@ label {
   outline: none;
   border-color: #6f8b7a;
   box-shadow: 0 0 0 4px rgba(111, 139, 122, 0.15);
-  transform: translateY(-1px);
-}
-
-.form-control::placeholder {
-  color: #b9c7bf;
-  font-weight: 400;
 }
 
 /* PAY BUTTON */
@@ -182,73 +148,40 @@ label {
   color: white;
   border: none;
   border-radius: 14px;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 1.5rem;
-  position: relative;
-  overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.pay-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.pay-btn:hover::before {
-  left: 100%;
+  margin-top: 0.5rem;
 }
 
 .pay-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(93, 116, 101, 0.4);
-  background: linear-gradient(135deg, #5d7465 0%, #4a5f53 100%);
-}
-
-.pay-btn:active:not(:disabled) {
-  transform: translateY(0);
 }
 
 .pay-btn:disabled {
-  background: linear-gradient(135deg, #b9c7bf 0%, #a0b3a8 100%);
-  cursor: not-allowed;
   opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* ERROR MESSAGE */
 .error-message {
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  background: #fee2e2;
   color: #dc2626;
   padding: 0.875rem 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
   font-size: 0.875rem;
-  font-weight: 500;
-  border: 1px solid #fecaca;
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.error-message::before {
-  content: "⚠️";
-  font-size: 1rem;
 }
 
 /* SUCCESS MESSAGE */
 .success-message {
   text-align: center;
   padding: 2rem 1rem;
-  animation: bounceIn 0.5s ease;
 }
 
 .success-icon {
@@ -262,24 +195,13 @@ label {
   justify-content: center;
   font-size: 3rem;
   margin: 0 auto 1.5rem;
-  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
-  animation: scaleCheck 0.3s ease 0.2s both;
 }
 
 .success-message h3 {
   color: #4a5f53;
   margin-bottom: 0.75rem;
-  font-size: 1.5rem;
-  font-weight: 700;
 }
 
-.success-message p {
-  color: #6b7280;
-  margin-bottom: 1.75rem;
-  font-size: 0.95rem;
-}
-
-/* CONTINUE BUTTON */
 .continue-btn {
   padding: 0.875rem 2rem;
   background: linear-gradient(135deg, #6f8b7a 0%, #5d7465 100%);
@@ -289,37 +211,17 @@ label {
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
-.continue-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(93, 116, 101, 0.3);
-  background: linear-gradient(135deg, #5d7465 0%, #4a5f53 100%);
-}
-
-/* SPINNER */
 .spinner {
   display: inline-block;
   animation: spin 1s linear infinite;
 }
 
-.spinner::before {
-  content: "⏳";
-  display: inline-block;
-  margin-right: 8px;
-}
-
 /* ANIMATIONS */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
@@ -334,131 +236,106 @@ label {
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-@keyframes bounceIn {
-  0% {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes scaleCheck {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* RESPONSIVE DESIGN */
+/* RESPONSIVE */
 @media (max-width: 640px) {
   .checkout-container {
     width: 95%;
-    max-height: 95vh;
   }
-
+  
   .checkout-header {
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
-
-  .checkout-header h2 {
-    font-size: 1.5rem;
-  }
-
+  
   .checkout-body {
     padding: 1.5rem;
   }
-
-  /* On mobile, stack expiry and CVV vertically with proper spacing */
+  
   .form-row {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
-  .form-row .form-group {
-    margin-bottom: 0;
-  }
-
-  .total-amount h3 {
-    font-size: 1.1rem;
-  }
-
-  .pay-btn {
-    padding: 0.875rem;
-    font-size: 1rem;
-  }
-
-  .success-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
-  }
-
-  .success-message h3 {
-    font-size: 1.25rem;
-  }
 }
 
-/* Hover effects for form groups */
-.form-group:hover .form-control {
-  border-color: #6f8b7a;
-}
-
-/* Focus visible for accessibility */
-.form-control:focus-visible {
-  outline: none;
-  border-color: #6f8b7a;
-  box-shadow: 0 0 0 4px rgba(111, 139, 122, 0.15);
-}
-
-/* Loading state for button */
-.pay-btn .spinner {
-  display: inline-flex;
+/* Toast Notifications - ADD THIS AT THE END OF YOUR CHECKOUT.CSS */
+.checkout-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 320px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  z-index: 10000;
+  animation: slideInRight 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Card input styling for better UX */
-input[type="text"] {
-  font-family: 'Courier New', monospace;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
+.success-toast {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
 }
 
-/* Optional: Add a subtle pattern to overlay */
-.checkout-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.1) 100%);
-  pointer-events: none;
+.error-toast {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
 }
 
-/* Additional spacing for expiry date and CVV fields on desktop */
-.expiry-field,
-.cvv-field {
-  width: 100%;
+.checkout-toast .toast-icon {
+  font-size: 24px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
 }
 
-/* Ensure proper spacing between form elements */
-.form-group:last-child {
-  margin-bottom: 0;
+.checkout-toast .toast-content {
+  flex: 1;
+}
+
+.checkout-toast .toast-content strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.checkout-toast .toast-content p {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.checkout-toast.remove {
+  animation: slideOutRight 0.3s ease forwards;
 }

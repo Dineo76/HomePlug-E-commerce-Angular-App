@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
-import { CheckoutComponent } from '../checkout/checkout';
+import { CheckoutComponent } from '../../Components/checkout/checkout';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +21,7 @@ export class Products implements OnInit {
   selectedProduct = signal<any | null>(null);
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
-  showCheckout = signal(false);
+  showCheckoutModal = signal(false);
 
   showToast(message: string) {
     this.toastMessage.set(message);
@@ -62,31 +62,6 @@ export class Products implements OnInit {
 
   closeModal() {
     this.selectedProduct.set(null);
-  }
-
-  /* CHECKOUT METHODS */
-  openCheckout() {
-    // First close the cart modal
-    this.closeCart();
-    
-    // Small delay to allow cart modal to close smoothly
-    setTimeout(() => {
-      if (this.cart().length === 0) {
-        this.showToast('Your cart is empty! 🛒');
-        return;
-      }
-      this.showCheckout.set(true);
-    }, 200);
-  }
-
-  closeCheckout() {
-    this.showCheckout.set(false);
-  }
-
-  handlePaymentSuccess() {
-    this.showToast('Payment successful! Thank you for your purchase! 🎉');
-    this.productService.cart.set([]);
-    this.closeCheckout();
   }
 
   /* CATEGORY FILTER */

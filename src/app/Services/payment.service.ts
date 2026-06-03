@@ -18,30 +18,53 @@ export class PaymentService {
   async processPayment(paymentDetails: PaymentDetails, amount: number): Promise<boolean> {
     this.isProcessing.set(true);
     this.paymentError.set(null);
+    this.paymentSuccess.set(false);
     
     return new Promise((resolve) => {
       setTimeout(() => {
-        if (this.validatePaymentDetails(paymentDetails)) {
-          this.paymentSuccess.set(true);
-          this.isProcessing.set(false);
-          resolve(true);
-        } else {
-          this.paymentError.set('Invalid payment details. Please check and try again.');
+       
+        if (!paymentDetails.cardholderName.trim()) {
+          this.paymentError.set('Please enter cardholder name');
           this.isProcessing.set(false);
           resolve(false);
+          return;
         }
+        
+        const cardNumberClean = paymentDetails.cardNumber.replace(/\s/g, '');
+        if (cardNumberClean.length !== 16) {
+          this.paymentError.set('Card number must be 16 digits');
+          this.isProcessing.set(false);
+          resolve(false);
+          return;
+        }
+        
+        if (!/^\d{16}$/.test(cardNumberClean)) {
+          this.paymentError.set('Invalid card number');
+          this.isProcessing.set(false);
+          resolve(false);
+          return;
+        }
+        
+        if (!/^(0[1-9]|1[0-2])\/(2[4-9]|[3-9][0-9])$/.test(paymentDetails.expiryDate)) {
+          this.paymentError.set('Invalid expiry date (MM/YY, must be future date)');
+          this.isProcessing.set(false);
+          resolve(false);
+          return;
+        }
+        
+        if (!/^\d{3,4}$/.test(paymentDetails.cvv)) {
+          this.paymentError.set('CVV must be 3 or 4 digits');
+          this.isProcessing.set(false);
+          resolve(false);
+          return;
+        }
+        
+        // Success
+        this.paymentSuccess.set(true);
+        this.isProcessing.set(false);
+        resolve(true);
       }, 2000);
     });
-  }
-
-  private validatePaymentDetails(details: PaymentDetails): boolean {
-    const cardNumberClean = details.cardNumber.replace(/\s/g, '');
-    const isValidCardNumber = /^\d{16}$/.test(cardNumberClean);
-    const isValidExpiry = /^(0[1-9]|1[0-2])\/(2[4-9]|[3-9][0-9])$/.test(details.expiryDate);
-    const isValidCVV = /^\d{3,4}$/.test(details.cvv);
-    const isValidName = details.cardholderName.trim().length > 0;
-    
-    return isValidCardNumber && isValidExpiry && isValidCVV && isValidName;
   }
 
   resetPaymentState() {

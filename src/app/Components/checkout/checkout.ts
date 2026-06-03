@@ -40,21 +40,76 @@ export class CheckoutComponent {
   }
   
   async processPayment() {
+    // Reset any previous errors
+    this.paymentService.paymentError.set(null);
+    
     const success = await this.paymentService.processPayment(
       this.paymentDetails,
       this.totalAmount()
     );
     
     if (success) {
+      // Show success toast notification
+      this.showSuccessMessage();
+      
+      // Emit success to parent to clear cart
+      this.onPaymentSuccess.emit();
+      
+      // Auto close after 2 seconds
       setTimeout(() => {
         this.handleSuccess();
       }, 2000);
+    } else {
+      // If not successful, show error message
+      const errorMsg = this.paymentService.paymentError();
+      if (errorMsg) {
+        this.showErrorMessage(errorMsg);
+      }
     }
   }
   
   handleSuccess() {
-    this.onPaymentSuccess.emit();
     this.paymentService.resetPaymentState();
     this.onClose.emit();
+  }
+  
+  // ADDED: Show success toast notification
+  showSuccessMessage() {
+    const toast = document.createElement('div');
+    toast.className = 'checkout-toast success-toast';
+    toast.innerHTML = `
+      <div class="toast-icon">✓</div>
+      <div class="toast-content">
+        <strong>Payment Successful!</strong>
+        <p>Thank you for your purchase. Your order has been confirmed.</p>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    
+    // Add remove animation and remove after 3 seconds
+    setTimeout(() => {
+      toast.classList.add('remove');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+  
+  // ADDED: Show error toast notification
+  showErrorMessage(message: string) {
+    const toast = document.createElement('div');
+    toast.className = 'checkout-toast error-toast';
+    toast.innerHTML = `
+      <div class="toast-icon">⚠️</div>
+      <div class="toast-content">
+        <strong>Payment Failed!</strong>
+        <p>${message}</p>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    
+    // Add remove animation and remove after 3 seconds
+    setTimeout(() => {
+      toast.classList.add('remove');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
   }
 }

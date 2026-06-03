@@ -2,11 +2,12 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
@@ -24,10 +25,11 @@ export class RegisterComponent {
   @Output() closeModal = new EventEmitter<void>();
   @Output() successRegister = new EventEmitter<void>();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   close() {
     this.closeModal.emit();
+    this.router.navigate(['/']);
   }
 
   private resetErrors(): void {
@@ -87,6 +89,7 @@ export class RegisterComponent {
 
         this.resetErrors();
         this.successRegister.emit();
+        this.router.navigate(['/login'], { queryParams: { toast: 'Registration complete. Please sign in.' } });
       })
 
       .catch((error) => {

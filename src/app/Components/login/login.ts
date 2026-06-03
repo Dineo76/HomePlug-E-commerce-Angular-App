@@ -4,11 +4,12 @@ import { ProductsService } from '../../services/product-services';
 import { StorageService } from '../../services/storage';
 import { AuthService } from '../../services/auth';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
@@ -30,11 +31,13 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private router: Router
   ) {}
 
   close() {
     this.closeModal.emit();
+    this.router.navigate(['/']);
   }
 
   private resetErrors(): void {
@@ -92,6 +95,7 @@ export class LoginComponent {
 
         this.resetErrors();
         this.successLogin.emit();
+        this.router.navigate(['/'], { queryParams: { toast: 'Logged in successfully' } });
       })
 
       .catch((error) => {

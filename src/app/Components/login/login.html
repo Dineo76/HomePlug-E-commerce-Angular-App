@@ -48,14 +48,14 @@
   </form>
 
   <p>
-    <a href="#" (click)="$event.preventDefault(); openForgotPassword()">
+    <a routerLink="/forgot-password">
         Forgot Password? 
     </a>
   </p>
 
   <div class="signup-option">
     <span style="color: #555;">Don't have an account?</span>
-    <a href="#" (click)="$event.preventDefault(); close()" class="signup-link" style="text-decoration: none;">Sign up now →</a>
+    <a routerLink="/register" class="signup-link" style="text-decoration: none;">Sign up now →</a>
   </div>
 </div>
 </div>

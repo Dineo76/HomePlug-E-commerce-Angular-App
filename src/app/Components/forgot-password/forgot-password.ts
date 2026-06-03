@@ -2,11 +2,12 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './forgot-password.html',
   styleUrls: ['./forgot-password.css']
 })
@@ -20,14 +21,16 @@ export class ForgotPasswordComponent {
   @Output() successReset = new EventEmitter<string>();
   @Output() showLogin = new EventEmitter<void>();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   close() {
     this.closeModal.emit();
+    this.router.navigate(['/login']);
   }
 
   openLogin() {
     this.showLogin.emit();
+    this.router.navigate(['/login']);
   }
 
   private validate(): boolean {
@@ -50,7 +53,7 @@ export class ForgotPasswordComponent {
       .forgotPassword(this.email)
       .then(() => {
         this.successReset.emit('Password reset email sent');
-        this.close();
+        this.router.navigate(['/login'], { queryParams: { toast: 'Password reset email sent' } });
       })
       .catch((error) => {
         console.error(error);

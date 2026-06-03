@@ -1,17 +1,16 @@
 import { Component, NgZone } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { AuthService } from '../services/auth';
 import { ProfileModal } from '../Components/profile-modal/profile-modal';
-import { LoginComponent } from '../Components/login/login';
-import { RegisterComponent } from '../Components/register/register';
-import { ForgotPasswordComponent } from '../Components/forgot-password/forgot-password';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../services/product-services';
 import { StorageService } from '../services/storage';
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, CommonModule, ProfileModal, LoginComponent, RegisterComponent, ForgotPasswordComponent],
+  imports: [RouterLink, CommonModule, ProfileModal],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
@@ -38,6 +37,23 @@ export class Header {
   ) {
     this.checkLoginStatus();
     this.loadPersistedState();
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.checkLoginStatus();
+      this.loadPersistedState();
+
+      const toastMsg = this.router.routerState.snapshot.root.queryParams['toast'];
+      if (toastMsg) {
+        this.showToast(toastMsg);
+        this.router.navigate([], {
+          queryParams: { toast: null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true
+        });
+      }
+    });
   }
 
   private loadPersistedState() {
@@ -69,6 +85,12 @@ export class Header {
       } catch (e) {
         console.error('Error parsing user data', e);
       }
+    } else {
+      this.isLoggedIn = false;
+      this.userEmail = '';
+      this.userId = '';
+      this.userFirstName = '';
+      this.userLastName = '';
     }
   }
 
@@ -134,22 +156,20 @@ export class Header {
 
   onShowLogin() {
     this.showProfileModal = false;
-    this.showLoginModal = true;
+    this.router.navigate(['/login']);
   }
 
   onShowRegister() {
     this.showProfileModal = false;
-    this.showRegisterModal = true;
+    this.router.navigate(['/register']);
   }
 
   onShowForgotPassword() {
-    this.showLoginModal = false;
-    this.showForgotPasswordModal = true;
+    this.router.navigate(['/forgot-password']);
   }
 
   onShowLoginFromForgot() {
-    this.showForgotPasswordModal = false;
-    this.showLoginModal = true;
+    this.router.navigate(['/login']);
   }
 
 

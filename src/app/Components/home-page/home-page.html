@@ -15,8 +15,12 @@
   <span class="title-line"></span>
 </div>
 
+<p *ngIf="searchQuery() && filteredProducts().length === 0" class="no-results">
+  No products found for "{{ searchQuery() }}".
+</p>
+
 <div class="grid">
-  @for (product of products(); track product.id) {
+  @for (product of filteredProducts(); track product.id) {
     <div class="card">
       <img [src]="product.thumbnail" [alt]="product.title" />
       <div class="card-body">

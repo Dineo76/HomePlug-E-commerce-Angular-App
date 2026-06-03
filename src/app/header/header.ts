@@ -1,17 +1,29 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ProductsService } from '../Services/product-services';
-
-
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
-  templateUrl:'./header.html',
+  imports: [RouterLink, FormsModule],
+  templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class Header {
+  private router = inject(Router);
+  productService = inject(ProductsService);
+  searchTerm: string = '';
 
-  productService = inject(ProductsService)
+  searchProducts() {
+    const query = this.searchTerm.trim();
+    if (!query) {
+      return;
+    }
+
+    this.router.navigate(['/products'], {
+      queryParams: { q: query },
+      queryParamsHandling: 'merge',
+    });
+  }
 }

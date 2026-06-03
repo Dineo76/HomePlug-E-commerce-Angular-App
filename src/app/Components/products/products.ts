@@ -1,11 +1,12 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
+import { CheckoutComponent } from '../../Components/checkout/checkout';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CheckoutComponent],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
@@ -18,6 +19,7 @@ export class Products implements OnInit {
   selectedProduct = signal<any | null>(null);
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
+  showCheckoutModal = signal(false);
 
   /* TOAST */
 

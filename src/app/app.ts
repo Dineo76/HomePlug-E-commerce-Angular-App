@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer';
 import { ProductsService } from './Services/product-services';
 import {DecimalPipe} from '@angular/common'
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -8,4 +8,6 @@ export const routes: Routes = [
   { path: '', component: HomePage },
   // { path: 'product/:id', component: ProductDetails },
   { path: 'products', component: Products },
+  { path: 'cart', component: Products },
+  { path: 'wishlist', component: Products }
 ];

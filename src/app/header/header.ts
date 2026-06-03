@@ -3,7 +3,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ProductsService } from '../Services/product-services';
 
 
-
 @Component({
   selector: 'app-header',
   standalone: true,

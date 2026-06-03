@@ -1,9 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-<<<<<<< HEAD
-=======
 import { ActivatedRoute } from '@angular/router';
->>>>>>> 050c8fb74c03b8054ded642654cb7184c821fb37
 import { ProductService } from '../../Services/home-service';
 
 @Component({

@@ -37,4 +37,8 @@ export class HomePage implements OnInit {
       this.searchQuery.set(params.get('q') ?? '');
     });
   }
+  getStars(rating: number): string[] {
+    const fullStars = Math.round(rating);
+    return Array(fullStars).fill('filled');
+  }
 }

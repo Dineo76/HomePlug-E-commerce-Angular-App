@@ -94,5 +94,16 @@
     </div>
 
   }
+
+   <!-- Checkout Button -->
+  @if(showCheckoutModal()) {
+    <app-checkout
+      [isOpen]="showCheckoutModal()"
+      [totalAmount]="cartTotalPrice()"
+      (onClose)="showCheckoutModal.set(false)"
+      (onPaymentSuccess)="productService.cart.set([]); showCheckoutModal.set(false)"
+    ></app-checkout>
+  }
+  
 <router-outlet></router-outlet>
 <app-footer />

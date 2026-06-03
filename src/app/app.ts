@@ -1,21 +1,26 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
 // import { Products } from './Components/products/products';
 import { FooterComponent } from './footer/footer';
 import { ProductsService } from './Services/product-services';
 import {DecimalPipe} from '@angular/common'
+import { CheckoutComponent } from './Components/checkout/checkout';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header,  FooterComponent, DecimalPipe],
+  imports: [RouterOutlet, Header,  FooterComponent, DecimalPipe, CheckoutComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App {
+
   productService = inject(ProductsService);
+
+  showCheckoutModal = signal(false);
 
   cart() {
     return this.productService.cart();

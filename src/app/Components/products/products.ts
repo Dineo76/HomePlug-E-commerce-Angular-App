@@ -2,6 +2,7 @@ import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
 import { CheckoutComponent } from '../../Components/checkout/checkout';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -13,6 +14,8 @@ import { CheckoutComponent } from '../../Components/checkout/checkout';
 export class Products implements OnInit {
 
   productService = inject(ProductsService);
+  route = inject(ActivatedRoute);
+   searchQuery = signal('');
 
   /* UI STATE (REQUIRED FOR HTML) */
 
@@ -34,9 +37,14 @@ export class Products implements OnInit {
 
   /*INIT*/
 
-  ngOnInit(): void {
-    this.productService.getProducts();
-  }
+ ngOnInit(): void {
+  this.productService.getProducts();
+
+  this.route.queryParamMap.subscribe(params => {
+    const q = params.get('q') ?? '';
+    this.searchQuery.set(q);
+  });
+}
 
   /* MODALS (CART / WISHLIST / PRODUCT) */
 
@@ -67,13 +75,22 @@ export class Products implements OnInit {
   /* CATEGORY FILTER */
 
   filteredProducts = computed(() => {
-    const products = this.productService.products();
-    const category = this.selectedCategory();
+  const products = this.productService.products();
+  const category = this.selectedCategory().toLowerCase();
+  const query = this.searchQuery().toLowerCase();
 
-    if (category === 'all') return products;
+  return products.filter(p => {
+    const matchesCategory =
+      category === 'all' || p.category.toLowerCase() === category;
 
-    return products.filter(p => p.category === category);
+    const matchesSearch =
+      !query ||
+      p.title.toLowerCase().includes(query) ||
+      p.category.toLowerCase().includes(query);
+
+    return matchesCategory && matchesSearch;
   });
+});
 
   /* CART ACTIONS */
 

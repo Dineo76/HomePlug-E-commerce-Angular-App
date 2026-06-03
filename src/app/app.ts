@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
 import { Products } from './Components/products/products';
 import { FooterComponent } from './footer/footer';
+import { FAQs } from './Components/faqs/faqs';
 
 
 @Component({
@@ -11,4 +13,5 @@ import { FooterComponent } from './footer/footer';
   imports: [RouterOutlet, Header, Products, FooterComponent,],
   templateUrl: './app.html'
 })
+
 export class App {}

@@ -1,0 +1,76 @@
+:host {
+  display: block;
+  font-family: Arial, sans-serif;
+  background-color: #dfd1c9;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.faq-container {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  border: none;
+  background-color: #78856e;
+  color: whitesmoke;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.faq-question:hover {
+  background-color: #908680;
+}
+
+.faq-answer {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-left: 4px solid #5c4033;
+  border-radius: 0 0 5px 5px;
+}
+
+h1 {
+  text-align: center;
+  color: #5c4033;
+}
+
+p {
+    text-align: center;
+    color: #5c4033;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.search-container input {
+  width: 300px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-container button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #5c4033;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #7a5643;
+}

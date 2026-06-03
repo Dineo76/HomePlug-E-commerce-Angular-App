@@ -11,14 +11,17 @@
     <input
       type="text"
       placeholder="Search products..."
+      [(ngModel)]="searchTerm"
+      (input)="searchProducts()"
     />
+
   </div>
 
   <div class="nav-links">
     <a routerLink="/" routerLinkActive="active-link">Home</a>
     <a routerLink="/products" routerLinkActive="active-link">Products</a>
     <a href="#">About Us</a>
-    <a href="#">FAQS</a>
+    <a routerLink="faqs">FAQS</a>
   </div>
 
   <div class="icons">

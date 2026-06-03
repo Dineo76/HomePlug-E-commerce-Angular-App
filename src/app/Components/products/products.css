@@ -57,7 +57,7 @@
 
 .products-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 310px));
   gap: 30px;
 }
 
@@ -70,6 +70,7 @@
   position: relative;
   transition: 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  max-width: 310px;
 }
 
 .product-card:hover {

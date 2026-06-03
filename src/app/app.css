@@ -21,7 +21,7 @@
     position: relative;
     animation: modalPop 0.3s ease;
     max-height: 80vh;
-  overflow-y: auto;
+   overflow-y: auto;
     
   }
   

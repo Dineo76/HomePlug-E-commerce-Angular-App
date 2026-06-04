@@ -1,21 +1,20 @@
 import { Component, NgZone } from '@angular/core';
 import { Router, RouterLink, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AuthService } from '../services/auth';
+import { AuthService } from '../Services/auth';
 import { ProfileModal } from '../Components/profile-modal/profile-modal';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '../services/product-services';
-import { StorageService } from '../services/storage';
+import { ProductsService } from '../Services/product-services';
+import { StorageService } from '../Services/storage';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [RouterLink, CommonModule, ProfileModal],
   templateUrl: './header.html',
-  styleUrls: ['./header.css']
+  styleUrls: ['./header.css'],
 })
 export class Header {
-
   showProfileModal = false;
   showLoginModal = false;
   showRegisterModal = false;
@@ -33,14 +32,12 @@ export class Header {
     private router: Router,
     private productsService: ProductsService,
     private storageService: StorageService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
   ) {
     this.checkLoginStatus();
     this.loadPersistedState();
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
       this.checkLoginStatus();
       this.loadPersistedState();
 
@@ -50,7 +47,7 @@ export class Header {
         this.router.navigate([], {
           queryParams: { toast: null },
           queryParamsHandling: 'merge',
-          replaceUrl: true
+          replaceUrl: true,
         });
       }
     });
@@ -172,27 +169,17 @@ export class Header {
     this.router.navigate(['/login']);
   }
 
-
   logout() {
     if (this.userId) {
+      this.storageService.saveCart(this.userId, this.productsService.cart());
 
-    this.storageService.saveCart(
-      this.userId,
-      this.productsService.cart()
-    );
+      this.storageService.saveWishlist(this.userId, this.productsService.wishlist());
+    }
 
-    this.storageService.saveWishlist(
-      this.userId,
-      this.productsService.wishlist()
-    );
-
-  }
-
-
-   this.authService.logout()
+    this.authService
+      .logout()
 
       .then(() => {
-
         this.ngZone.run(() => {
           this.productsService.cart.set([]);
           this.productsService.wishlist.set([]);
@@ -210,7 +197,6 @@ export class Header {
           this.showToast('Logged out successfully');
           this.router.navigate(['/']);
         });
-
       })
 
       .catch((error) => {

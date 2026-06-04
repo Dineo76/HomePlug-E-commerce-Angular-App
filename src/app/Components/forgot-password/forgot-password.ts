@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../Services/auth';
 import { RouterLink, Router } from '@angular/router';
 
 @Component({
@@ -9,10 +9,9 @@ import { RouterLink, Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './forgot-password.html',
-  styleUrls: ['./forgot-password.css']
+  styleUrls: ['./forgot-password.css'],
 })
 export class ForgotPasswordComponent {
-
   email = '';
   emailError = '';
   generalError = '';
@@ -21,7 +20,10 @@ export class ForgotPasswordComponent {
   @Output() successReset = new EventEmitter<string>();
   @Output() showLogin = new EventEmitter<void>();
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   close() {
     this.closeModal.emit();

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '../../services/home-service';
+import { ProductService } from '../../Services/home-service';
 import { productType } from '../../Interface/types';
 
 @Component({
@@ -8,7 +8,7 @@ import { productType } from '../../Interface/types';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home-page.html',
-  styleUrls: ['./home-page.css']
+  styleUrls: ['./home-page.css'],
 })
 export class HomePage implements OnInit {
   productService = inject(ProductService);

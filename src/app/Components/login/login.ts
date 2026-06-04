@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ProductsService } from '../../services/product-services';
-import { StorageService } from '../../services/storage';
-import { AuthService } from '../../services/auth';
+import { ProductsService } from '../../Services/product-services';
+import { StorageService } from '../../Services/storage';
+import { AuthService } from '../../Services/auth';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -11,10 +11,9 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
 })
 export class LoginComponent {
-
   email = '';
   password = '';
   emailError = '';
@@ -32,7 +31,7 @@ export class LoginComponent {
     private authService: AuthService,
     private storageService: StorageService,
     private productsService: ProductsService,
-    private router: Router
+    private router: Router,
   ) {}
 
   close() {
@@ -80,18 +79,14 @@ export class LoginComponent {
               uid,
               email: userCredential.user.email,
               firstName: '',
-              lastName: ''
-            })
+              lastName: '',
+            }),
           );
         }
 
-        this.productsService.cart.set(
-          this.storageService.loadCart(uid)
-        );
+        this.productsService.cart.set(this.storageService.loadCart(uid));
 
-        this.productsService.wishlist.set(
-          this.storageService.loadWishlist(uid)
-        );
+        this.productsService.wishlist.set(this.storageService.loadWishlist(uid));
 
         this.resetErrors();
         this.successLogin.emit();

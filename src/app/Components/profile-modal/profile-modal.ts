@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthStateService } from '../../services/auth-state';
+import { AuthStateService } from '../../Services/auth-state';
 
 @Component({
   selector: 'app-profile-modal',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './profile-modal.html',
-  styleUrls: ['./profile-modal.css']
+  styleUrls: ['./profile-modal.css'],
 })
 export class ProfileModal {
   @Input() isLoggedIn = false;
@@ -20,9 +20,7 @@ export class ProfileModal {
   @Output() showLogin = new EventEmitter<void>();
   @Output() showRegister = new EventEmitter<void>();
 
-  constructor(
-    private authService: AuthStateService
-  ) {}
+  constructor(private authService: AuthStateService) {}
 
   close() {
     this.closeModal.emit();

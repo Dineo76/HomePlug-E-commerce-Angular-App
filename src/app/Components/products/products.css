@@ -561,7 +561,7 @@ button {
 
 /* Add an icon before the text */
 .checkout-from-cart-btn::after {
-  content: "💳";
+  content: "";
   font-size: 18px;
   transition: transform 0.3s ease;
 }

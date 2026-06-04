@@ -1,11 +1,12 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
+import { CheckoutComponent } from '../../Components/checkout/checkout';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CheckoutComponent],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
@@ -19,18 +20,13 @@ export class Products implements OnInit {
   selectedProduct = signal<any | null>(null);
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
-  private toastTimer: any = null;
+  showCheckoutModal = signal(false);
 
   showToast(message: string) {
     this.toastMessage.set(message);
 
-    if (this.toastTimer) {
-      clearTimeout(this.toastTimer);
-    }
-
-    this.toastTimer = setTimeout(() => {
+    setTimeout(() => {
       this.toastMessage.set(null);
-      this.toastTimer = null;
     }, 2000);
   }
 

@@ -1,16 +1,18 @@
-import { Component, NgZone } from '@angular/core';
-import { Router, RouterLink, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../Services/auth';
 import { ProfileModal } from '../Components/profile-modal/profile-modal';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '../Services/product-services';
 import { StorageService } from '../Services/storage';
+import { Component, inject, NgZone } from '@angular/core';
+import {  Router, RouterLink, NavigationEnd, RouterLinkActive } from '@angular/router';
+import { ProductsService } from '../Services/product-services';
+
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, CommonModule, ProfileModal],
+  imports: [RouterLink, CommonModule, ProfileModal, RouterLinkActive],
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
 })
@@ -204,4 +206,6 @@ export class Header {
         alert(error.message);
       });
   }
+  
+  productService = inject(ProductsService)
 }

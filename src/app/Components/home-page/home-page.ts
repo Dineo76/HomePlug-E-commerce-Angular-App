@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../Services/home-service';
-import { productType } from '../../Interface/types';
 
 @Component({
   selector: 'app-home',
@@ -16,5 +15,11 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.productService.getProducts();
+  }
+
+  getStars(rating: number): string[] {
+    return Array.from({ length: 5 }, (_, i) =>
+      i < Math.round(rating) ? 'full' : 'empty'
+    );
   }
 }

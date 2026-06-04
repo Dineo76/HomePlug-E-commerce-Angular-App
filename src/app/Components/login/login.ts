@@ -62,14 +62,21 @@ export class LoginComponent {
   }
 
   login() {
+    console.log('LoginComponent: login() triggered with email:', this.email);
     if (!this.validate()) {
+      console.log('LoginComponent: validation failed. Errors:', {
+        emailError: this.emailError,
+        passwordError: this.passwordError
+      });
       return;
     }
+    console.log('LoginComponent: validation passed. Calling authService.login()...');
 
     this.authService
       .login(this.email, this.password)
 
       .then((userCredential) => {
+        console.log('LoginComponent: login success. userCredential:', userCredential);
         const uid = userCredential.user.uid;
 
         if (typeof localStorage !== 'undefined') {
@@ -78,8 +85,8 @@ export class LoginComponent {
             JSON.stringify({
               uid,
               email: userCredential.user.email,
-              firstName: '',
-              lastName: '',
+              firstName: userCredential.user.firstName || '',
+              lastName: userCredential.user.lastName || '',
             }),
           );
         }
@@ -90,11 +97,12 @@ export class LoginComponent {
 
         this.resetErrors();
         this.successLogin.emit();
+        console.log('LoginComponent: navigating to / with toast...');
         this.router.navigate(['/'], { queryParams: { toast: 'Logged in successfully' } });
       })
 
       .catch((error) => {
-        console.error(error);
+        console.error('LoginComponent: login failed with error:', error);
         this.generalError = error?.message || 'Login failed. Please try again.';
       });
   }

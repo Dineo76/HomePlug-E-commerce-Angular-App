@@ -67,14 +67,27 @@ export class RegisterComponent {
   }
 
   register() {
+    console.log('RegisterComponent: register() triggered with:', {
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName
+    });
     if (!this.validate()) {
+      console.log('RegisterComponent: validation failed. Errors:', {
+        firstNameError: this.firstNameError,
+        lastNameError: this.lastNameError,
+        emailError: this.emailError,
+        passwordError: this.passwordError
+      });
       return;
     }
+    console.log('RegisterComponent: validation passed. Calling authService.register()...');
 
     this.authService
-      .register(this.email, this.password)
+      .register(this.email, this.password, this.firstName, this.lastName)
 
       .then((userCredential) => {
+        console.log('RegisterComponent: registration success. userCredential:', userCredential);
         const uid = userCredential.user.uid;
 
         if (typeof localStorage !== 'undefined') {
@@ -91,12 +104,14 @@ export class RegisterComponent {
 
         this.resetErrors();
         this.successRegister.emit();
+        console.log('RegisterComponent: navigating to /login with toast...');
         this.router.navigate(['/login'], {
           queryParams: { toast: 'Registration complete. Please sign in.' },
         });
       })
 
       .catch((error) => {
+        console.error('RegisterComponent: registration failed with error:', error);
         this.generalError = error?.message || 'Registration failed. Please try again.';
       });
   }

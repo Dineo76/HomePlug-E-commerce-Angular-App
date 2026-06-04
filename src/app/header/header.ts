@@ -154,13 +154,17 @@ export class Header {
   }
 
   onShowLogin() {
-    this.showProfileModal = false;
-    this.router.navigate(['/login']);
+    this.ngZone.run(() => {
+      this.showProfileModal = false;
+      this.router.navigate(['/login']);
+    });
   }
 
   onShowRegister() {
-    this.showProfileModal = false;
-    this.router.navigate(['/register']);
+    this.ngZone.run(() => {
+      this.showProfileModal = false;
+      this.router.navigate(['/register']);
+    });
   }
 
   onShowForgotPassword() {

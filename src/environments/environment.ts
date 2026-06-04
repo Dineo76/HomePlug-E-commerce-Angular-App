@@ -1,5 +1,6 @@
 export const environment = {
     API: 'https://dummyjson.com/products',
+    authApi: 'http://localhost:3000',
     firebase: {
         apiKey: "AIzaSyDt9oIV6viANu8rfijr60f2K9aYL3JNaaY",
         authDomain: "homeplug-34c40.firebaseapp.com",

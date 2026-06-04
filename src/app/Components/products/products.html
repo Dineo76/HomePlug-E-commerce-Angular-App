@@ -149,6 +149,7 @@
           <p>Your cart is empty.</p>
         }
 
+        <div class="cart-items">
         @for(item of cart(); track item.id) {
 
           <div class="cart-row">
@@ -178,6 +179,7 @@
           </div>
 
         }
+        </div>
 
         <div class="cart-total">
           Total: R{{ cartTotalPrice() | number:'1.2-2' }}
@@ -210,6 +212,7 @@
           <p>Your wishlist is empty.</p>
         }
 
+        <div class="cart-items">
         @for(item of wishlist(); track item.id) {
 
           <div class="cart-row">
@@ -233,6 +236,7 @@
           </div>
 
         }
+        </div>
 
       </div>
 

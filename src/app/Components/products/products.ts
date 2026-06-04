@@ -1,30 +1,27 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../Services/product-services';
-import { CheckoutComponent } from '../../Components/checkout/checkout';
+
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, CheckoutComponent],
+  imports: [CommonModule, ],
   templateUrl: './products.html',
-  styleUrl: './products.css',
+  styleUrl: './products.css'
 })
 export class Products implements OnInit {
+
   productService = inject(ProductsService);
-  route = inject(ActivatedRoute);
 
-  searchTerm = signal('');
+  /* UI STATE (LOCAL ONLY - PRODUCT PAGE) */
 
-  /* UI STATE (REQUIRED FOR HTML) */
-
-  showCart = signal(false);
-  showWishlist = signal(false);
   selectedProduct = signal<any | null>(null);
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
   showCheckoutModal = signal(false);
+
+  /* TOAST */
 
   showToast(message: string) {
     this.toastMessage.set(message);
@@ -38,29 +35,9 @@ export class Products implements OnInit {
 
   ngOnInit(): void {
     this.productService.getProducts();
-
-    this.route.queryParams.subscribe(params => {
-      this.searchTerm.set(params['q'] || '');
-    });
   }
 
-  /* MODALS (CART / WISHLIST / PRODUCT) */
-
-  openCart() {
-    this.showCart.set(true);
-  }
-
-  closeCart() {
-    this.showCart.set(false);
-  }
-
-  openWishlist() {
-    this.showWishlist.set(true);
-  }
-
-  closeWishlist() {
-    this.showWishlist.set(false);
-  }
+  /* PRODUCT MODAL */
 
   openModal(product: any) {
     this.selectedProduct.set(product);
@@ -70,31 +47,15 @@ export class Products implements OnInit {
     this.selectedProduct.set(null);
   }
 
-  /* CATEGORY + SEARCH FILTER */
+  /* CATEGORY FILTER */
 
   filteredProducts = computed(() => {
-    let products = this.productService.products();
-
+    const products = this.productService.products();
     const category = this.selectedCategory();
-    const search = this.searchTerm().toLowerCase().trim();
 
-    if (category !== 'all') {
-      products = products.filter(
-        p => p.category?.toLowerCase() === category.toLowerCase()
-      );
-    }
+    if (category === 'all') return products;
 
-    if (search) {
-      products = products.filter(
-        p =>
-          p.title?.toLowerCase().includes(search) ||
-          p.name?.toLowerCase().includes(search) ||
-          p.category?.toLowerCase().includes(search)
-      );
-    }
-
-    return products;
-    return products.filter((p) => p.category === category);
+    return products.filter(p => p.category === category);
   });
 
   /* CART ACTIONS */
@@ -114,17 +75,24 @@ export class Products implements OnInit {
   }
 
   decreaseQty(product: any) {
-    this.productService.cart.update((items) =>
+    this.productService.cart.update(items =>
       items
-        .map((p) => (p.id === product.id ? { ...p, quantity: p.quantity - 1 } : p))
-        .filter((p) => p.quantity > 0),
+        .map(p =>
+          p.id === product.id
+            ? { ...p, quantity: p.quantity - 1 }
+            : p
+        )
+        .filter(p => p.quantity > 0)
     );
   }
 
-  /* WISHLIST ACTIONS */
+  /* WISHLIST */
 
   toggleWishlist(product: any) {
-    const exists = this.productService.wishlist().some(p => p.id === product.id);
+
+    const exists = this.productService
+      .wishlist()
+      .some(p => p.id === product.id);
 
     this.productService.toggleWishlist(product);
 
@@ -136,10 +104,12 @@ export class Products implements OnInit {
   }
 
   isWishlisted(product: any) {
-    return this.productService.wishlist().some((p) => p.id === product.id);
+    return this.productService
+      .wishlist()
+      .some(p => p.id === product.id);
   }
 
-  /* SIGNAL ACCESSORS (FOR HTML) */
+  /* SIGNAL ACCESSORS */
 
   cart() {
     return this.productService.cart();
@@ -149,7 +119,7 @@ export class Products implements OnInit {
     return this.productService.wishlist();
   }
 
-  /* CART TOTALS (FROM SERVICE) */
+  /* CART TOTALS */
 
   cartTotal() {
     return this.productService.cartTotal();

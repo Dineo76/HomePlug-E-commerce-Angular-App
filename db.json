@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "email": "nonjie.phoswa@gmail.com",
+      "password": "0987654321",
+      "firstName": "Nonjabulo",
+      "lastName": "Phoswa",
+      "id": "9vuHVjI91cc"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

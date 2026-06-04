@@ -1,4 +1,4 @@
-/* CHECKOUT OVERLAY */
+
 .checkout-overlay {
   position: fixed;
   top: 0;
@@ -14,7 +14,7 @@
   animation: fadeIn 0.3s ease;
 }
 
-/* CHECKOUT CONTAINER */
+
 .checkout-container {
   background: linear-gradient(135deg, #ffffff 0%, #f8faf6 100%);
   border-radius: 24px;
@@ -27,7 +27,7 @@
   border: 1px solid rgba(111, 139, 122, 0.2);
 }
 
-/* Custom Scrollbar */
+
 .checkout-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -46,7 +46,7 @@
   background: #5d7465;
 }
 
-/* HEADER */
+
 .checkout-header {
   display: flex;
   justify-content: space-between;
@@ -68,7 +68,7 @@
   letter-spacing: -0.5px;
 }
 
-/* CLOSE BUTTON */
+
 .close-btn {
   background: #f0f4f1;
   border: none;
@@ -90,12 +90,12 @@
   transform: rotate(90deg);
 }
 
-/* BODY */
+
 .checkout-body {
   padding: 2rem;
 }
 
-/* TOTAL AMOUNT SECTION */
+
 .total-amount {
   background: linear-gradient(135deg, #eef4f0 0%, #e8efe9 100%);
   padding: 1.25rem;
@@ -119,7 +119,7 @@
   font-size: 1.3rem;
 }
 
-/* FORM GROUPS */
+
 .form-group {
   margin-bottom: 1.25rem;
 }
@@ -135,7 +135,7 @@
   margin-bottom: 0;
 }
 
-/* LABELS */
+
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -146,7 +146,7 @@ label {
   letter-spacing: 0.5px;
 }
 
-/* INPUT FIELDS */
+
 .form-control {
   width: 100%;
   padding: 0.875rem 1rem;
@@ -172,7 +172,7 @@ label {
   font-weight: 400;
 }
 
-/* PAY BUTTON */
+
 .pay-btn {
   width: 100%;
   padding: 1rem;
@@ -222,7 +222,7 @@ label {
   opacity: 0.7;
 }
 
-/* ERROR MESSAGE */
+
 .error-message {
   background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
   color: #dc2626;
@@ -242,7 +242,7 @@ label {
   font-size: 1rem;
 }
 
-/* SUCCESS MESSAGE INSIDE MODAL */
+
 .success-message {
   text-align: center;
   padding: 2rem 1rem;
@@ -297,7 +297,7 @@ label {
   background: linear-gradient(135deg, #5d7465 0%, #4a5f53 100%);
 }
 
-/* SPINNER */
+
 .spinner {
   display: inline-block;
   animation: spin 1s linear infinite;
@@ -309,7 +309,7 @@ label {
   margin-right: 8px;
 }
 
-/* ANIMATIONS */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -354,7 +354,7 @@ label {
   }
 }
 
-/* RESPONSIVE */
+
 @media (max-width: 640px) {
   .checkout-container {
     width: 95%;
@@ -398,26 +398,25 @@ label {
   }
 }
 
-/* Hover effects for form groups */
 .form-group:hover .form-control {
   border-color: #6f8b7a;
 }
 
-/* Focus visible for accessibility */
+
 .form-control:focus-visible {
   outline: none;
   border-color: #6f8b7a;
   box-shadow: 0 0 0 4px rgba(111, 139, 122, 0.15);
 }
 
-/* Card input styling for better UX */
+
 input[type="text"] {
   font-family: 'Courier New', monospace;
   font-size: 1rem;
   letter-spacing: 0.5px;
 }
 
-/* TOAST NOTIFICATIONS - Popup messages at top right */
+
 .checkout-toast {
   position: fixed;
   top: 20px;

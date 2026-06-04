@@ -1,3 +1,7 @@
+<div *ngIf="toastMessage" class="toast">
+  {{ toastMessage }}
+</div>
+
 <nav class="header">
 
   <div class="logo">
@@ -21,7 +25,7 @@
     <a routerLink="/" routerLinkActive="active-link">Home</a>
     <a routerLink="/products" routerLinkActive="active-link">Products</a>
     <a href="#">About Us</a>
-    <a routerLink="faqs">FAQS</a>
+    <a routerLink="/faqs" routerLinkActive="active-link">FAQS</a>
   </div>
 
   <div class="icons">
@@ -70,12 +74,25 @@
   </div>
 
   <div class="icon profile">
-    <div class="avatar">
+    <div class="avatar" (click)="openProfileModal()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
       </svg>
     </div>
-    <p>Profile</p>
+    <p (click)="openProfileModal()">Profile</p>
   </div>
 
 </nav>
+
+<app-profile-modal
+  *ngIf="showProfileModal"
+  [isLoggedIn]="isLoggedIn"
+  [userEmail]="userEmail"
+  [userId]="userId"
+  [userFirstName]="userFirstName"
+  [userLastName]="userLastName"
+  (closeModal)="closeProfileModal()"
+  (logoutEvent)="logout()"
+  (showLogin)="onShowLogin()"
+  (showRegister)="onShowRegister()">
+</app-profile-modal>

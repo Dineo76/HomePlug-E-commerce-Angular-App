@@ -6,6 +6,39 @@
 
   <input
     type="text"
+    placeholder="Search products..."
+    [(ngModel)]="searchText"
+  />
+
+  <button (click)="searchProduct()">
+    Search
+  </button>
+
+</div>
+
+  <div class="faq">
+
+  <div *ngFor="let faq of visibleFaqs; let i = index">
+
+    <button class="faq-question" (click)="toggleFAQ(i)">
+      {{ faq.question }}
+    </button>
+
+    <div class="faq-answer" *ngIf="faq.open">
+      <p>{{ faq.answer }}</p>
+    </div>
+
+  </div>
+
+</div>
+<h1>FAQs</h1>
+
+<p>Everything you need to know about HomePlug</p>
+
+<div class="search-container">
+
+  <input
+    type="text"
     placeholder="Search FAQs..."
     [(ngModel)]="searchText"
     (input)="searchProduct()"

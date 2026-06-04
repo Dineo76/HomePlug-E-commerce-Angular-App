@@ -9,10 +9,9 @@ import { CheckoutComponent } from '../../Components/checkout/checkout';
   standalone: true,
   imports: [CommonModule, CheckoutComponent],
   templateUrl: './products.html',
-  styleUrl: './products.css'
+  styleUrl: './products.css',
 })
 export class Products implements OnInit {
-
   productService = inject(ProductsService);
   route = inject(ActivatedRoute);
 
@@ -95,6 +94,7 @@ export class Products implements OnInit {
     }
 
     return products;
+    return products.filter((p) => p.category === category);
   });
 
   /* CART ACTIONS */
@@ -114,24 +114,17 @@ export class Products implements OnInit {
   }
 
   decreaseQty(product: any) {
-    this.productService.cart.update(items =>
+    this.productService.cart.update((items) =>
       items
-        .map(p =>
-          p.id === product.id
-            ? { ...p, quantity: p.quantity - 1 }
-            : p
-        )
-        .filter(p => p.quantity > 0)
+        .map((p) => (p.id === product.id ? { ...p, quantity: p.quantity - 1 } : p))
+        .filter((p) => p.quantity > 0),
     );
   }
 
   /* WISHLIST ACTIONS */
 
   toggleWishlist(product: any) {
-
-    const exists = this.productService
-      .wishlist()
-      .some(p => p.id === product.id);
+    const exists = this.productService.wishlist().some(p => p.id === product.id);
 
     this.productService.toggleWishlist(product);
 
@@ -143,7 +136,7 @@ export class Products implements OnInit {
   }
 
   isWishlisted(product: any) {
-    return this.productService.wishlist().some(p => p.id === product.id);
+    return this.productService.wishlist().some((p) => p.id === product.id);
   }
 
   /* SIGNAL ACCESSORS (FOR HTML) */

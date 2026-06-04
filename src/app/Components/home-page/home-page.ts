@@ -8,7 +8,7 @@ import { ProductService } from '../../Services/home-service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home-page.html',
-  styleUrls: ['./home-page.css']
+  styleUrls: ['./home-page.css'],
 })
 export class HomePage implements OnInit {
   private route = inject(ActivatedRoute);

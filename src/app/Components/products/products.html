@@ -138,7 +138,7 @@
   }
 
   <!-- CART -->
-  @if(productService.showCart()) {
+  <!-- @if(productService.showCart()) {
 
     <div class="modal-backdrop" (click)="productService.closeCart()">
 
@@ -184,9 +184,9 @@
 
         <div class="cart-total">
           Total: R{{ cartTotalPrice() | number:'1.2-2' }}
-          
+           -->
            <!-- ADD THIS CHECKOUT BUTTON -->
-          <button class="checkout-from-cart-btn" (click)="showCheckoutModal.set(true)">
+          <!-- <button class="checkout-from-cart-btn" (click)="showCheckoutModal.set(true)">
             Proceed to Checkout
           </button>
       
@@ -196,10 +196,10 @@
 
     </div>
 
-  }
+  } -->
 
   <!-- WISHLIST -->
-  @if(productService.showWishlist()) {
+  <!-- @if(productService.showWishlist()) {
 
     <div class="modal-backdrop" (click)="productService.closeWishlist()">
 
@@ -241,15 +241,15 @@
 
     </div>
 
-  }
+  } -->
 
-  @if(showCheckoutModal()) {
+  <!-- @if(showCheckoutModal()) {
     <app-checkout
       [isOpen]="showCheckoutModal()"
       [totalAmount]="cartTotalPrice()"
       (onClose)="showCheckoutModal.set(false)"
       (onPaymentSuccess)="productService.cart.set([]); showCheckoutModal.set(false)"
     ></app-checkout>
-  }
+  } -->
 
 </section>

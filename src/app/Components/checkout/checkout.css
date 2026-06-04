@@ -115,7 +115,7 @@
 }
 
 .total-amount h3::before {
-  content: "💰 ";
+  content: " ";
   font-size: 1.3rem;
 }
 
@@ -238,7 +238,7 @@ label {
 }
 
 .error-message::before {
-  content: "⚠️";
+  content: "";
   font-size: 1rem;
 }
 

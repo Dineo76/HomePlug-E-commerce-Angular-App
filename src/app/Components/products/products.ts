@@ -1,18 +1,20 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
-
+import { CheckoutComponent } from '../../Components/checkout/checkout';
+import { ActivatedRoute } from '@angular/router'; // ✅ ADDED
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, ],
+  imports: [CommonModule, CheckoutComponent],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
 export class Products implements OnInit {
 
   productService = inject(ProductsService);
+  private route = inject(ActivatedRoute); // ✅ ADDED
 
   /* UI STATE (LOCAL ONLY - PRODUCT PAGE) */
 
@@ -20,6 +22,8 @@ export class Products implements OnInit {
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
   showCheckoutModal = signal(false);
+
+  searchQuery = signal(''); // ✅ ADDED
 
   /* TOAST */
 
@@ -35,6 +39,17 @@ export class Products implements OnInit {
 
   ngOnInit(): void {
     this.productService.getProducts();
+
+    // ✅ READ SEARCH FROM NAVBAR URL
+    this.route.queryParams.subscribe(params => {
+      const q = params['q'];
+
+      if (q) {
+        this.searchQuery.set(q.toLowerCase());
+      } else {
+        this.searchQuery.set('');
+      }
+    });
   }
 
   /* PRODUCT MODAL */
@@ -47,15 +62,30 @@ export class Products implements OnInit {
     this.selectedProduct.set(null);
   }
 
-  /* CATEGORY FILTER */
+  /* CATEGORY FILTER + SEARCH FIX */
 
   filteredProducts = computed(() => {
     const products = this.productService.products();
     const category = this.selectedCategory();
+    const search = this.searchQuery();
 
-    if (category === 'all') return products;
+    let result = products;
 
-    return products.filter(p => p.category === category);
+    // category filter (UNCHANGED)
+    if (category === 'all') {
+      result = products;
+    } else {
+      result = products.filter(p => p.category === category);
+    }
+
+    // ✅ SEARCH FIX
+    if (search) {
+      result = result.filter(p =>
+        (p.title ?? '').toLowerCase().includes(search)
+      );
+    }
+
+    return result;
   });
 
   /* CART ACTIONS */
@@ -118,8 +148,6 @@ export class Products implements OnInit {
   wishlist() {
     return this.productService.wishlist();
   }
-
-  /* CART TOTALS */
 
   cartTotal() {
     return this.productService.cartTotal();

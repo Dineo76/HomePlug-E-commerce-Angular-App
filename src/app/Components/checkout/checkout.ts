@@ -46,7 +46,7 @@ export class CheckoutComponent {
     const success = await this.paymentService.processPayment(
       this.paymentDetails,
       this.totalAmount()
-    );
+    );  
     
     if (success) {
       // Show custom toast

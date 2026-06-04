@@ -6,8 +6,9 @@
 
   <input
     type="text"
-    placeholder="Search products..."
+    placeholder="Search FAQs..."
     [(ngModel)]="searchText"
+    (input)="searchProduct()"
   />
 
   <button (click)="searchProduct()">
@@ -16,7 +17,7 @@
 
 </div>
 
-  <div class="faq">
+<div class="faq">
 
   <div *ngFor="let faq of visibleFaqs; let i = index">
 

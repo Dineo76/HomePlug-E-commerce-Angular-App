@@ -1,5 +1,6 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../Services/product-services';
 import { CheckoutComponent } from '../../Components/checkout/checkout';
 
@@ -13,6 +14,9 @@ import { CheckoutComponent } from '../../Components/checkout/checkout';
 export class Products implements OnInit {
 
   productService = inject(ProductsService);
+  route = inject(ActivatedRoute);
+
+  searchTerm = signal('');
 
   /* UI STATE (REQUIRED FOR HTML) */
 
@@ -25,17 +29,20 @@ export class Products implements OnInit {
 
   showToast(message: string) {
     this.toastMessage.set(message);
-  
+
     setTimeout(() => {
       this.toastMessage.set(null);
     }, 2000);
   }
-  
 
-  /*INIT*/
+  /* INIT */
 
   ngOnInit(): void {
     this.productService.getProducts();
+
+    this.route.queryParams.subscribe(params => {
+      this.searchTerm.set(params['q'] || '');
+    });
   }
 
   /* MODALS (CART / WISHLIST / PRODUCT) */
@@ -64,15 +71,30 @@ export class Products implements OnInit {
     this.selectedProduct.set(null);
   }
 
-  /* CATEGORY FILTER */
+  /* CATEGORY + SEARCH FILTER */
 
   filteredProducts = computed(() => {
-    const products = this.productService.products();
+    let products = this.productService.products();
+
     const category = this.selectedCategory();
+    const search = this.searchTerm().toLowerCase().trim();
 
-    if (category === 'all') return products;
+    if (category !== 'all') {
+      products = products.filter(
+        p => p.category?.toLowerCase() === category.toLowerCase()
+      );
+    }
 
-    return products.filter(p => p.category === category);
+    if (search) {
+      products = products.filter(
+        p =>
+          p.title?.toLowerCase().includes(search) ||
+          p.name?.toLowerCase().includes(search) ||
+          p.category?.toLowerCase().includes(search)
+      );
+    }
+
+    return products;
   });
 
   /* CART ACTIONS */
@@ -81,15 +103,16 @@ export class Products implements OnInit {
     this.productService.addToCart(product);
     this.showToast('Added to cart 🛒');
   }
-  
+
   removeFromCart(product: any) {
     this.productService.removeFromCart(product);
     this.showToast('Removed from cart ❌');
   }
+
   increaseQty(product: any) {
     this.productService.addToCart(product);
   }
-  
+
   decreaseQty(product: any) {
     this.productService.cart.update(items =>
       items
@@ -109,9 +132,9 @@ export class Products implements OnInit {
     const exists = this.productService
       .wishlist()
       .some(p => p.id === product.id);
-  
+
     this.productService.toggleWishlist(product);
-  
+
     if (exists) {
       this.showToast('Removed from wishlist ❌');
     } else {
@@ -123,7 +146,7 @@ export class Products implements OnInit {
     return this.productService.wishlist().some(p => p.id === product.id);
   }
 
-  /* SIGNAL ACCESSORS (FOR HTML)*/
+  /* SIGNAL ACCESSORS (FOR HTML) */
 
   cart() {
     return this.productService.cart();

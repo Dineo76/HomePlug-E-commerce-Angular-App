@@ -94,7 +94,7 @@ export class Header {
   }
 
   openProfileModal() {
-    this.checkLoginStatus(); // Refresh status before opening
+    this.checkLoginStatus(); 
     this.showProfileModal = true;
   }
 

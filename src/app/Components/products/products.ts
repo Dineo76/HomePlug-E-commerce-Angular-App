@@ -1,14 +1,9 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
-<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
 import { CheckoutComponent } from '../checkout/checkout';
 
-=======
-import { CheckoutComponent } from '../../Components/checkout/checkout';
-import { ActivatedRoute } from '@angular/router'; // ✅ ADDED
->>>>>>> 593df4ddba56ccbf2e6c9ebd48af9fdb6058c97d
 
 @Component({
   selector: 'app-products',

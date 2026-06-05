@@ -1,1 +1,80 @@
-<p>register works!</p>
+<div class="register-overlay-wrapper">
+  <div class="overlay-backdrop" (click)="close()"></div>
+  <div class="register-container">
+    <button class="close-modal-btn" (click)="close()">×</button>
+    
+    <div class="welcome-banner">
+      <div class="brand-icon">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 10L12 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 10L20 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <rect x="8" y="10" width="16" height="14" rx="2" stroke="white" stroke-width="1.8" fill="none"/>
+          <path d="M16 16L16 22" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="12" cy="20" r="1.2" fill="white"/>
+          <circle cx="20" cy="20" r="1.2" fill="white"/>
+          <path d="M21 24L23 28" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M11 24L9 28" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>HomePlug</h1>
+      
+      <div class="leaf-accent"></div>
+      <p style="font-size: 0.85rem; color: #6f8b7a; margin-top: 12px; font-weight: 470;">Join the family — personalize your home experience</p>
+    </div>
+
+    <h2>Create Account</h2>
+
+    <form (ngSubmit)="register()">
+      <div class="name-row">
+        <div class="field-group">
+          <input
+            type="text"
+            placeholder="First Name"
+            [(ngModel)]="firstName"
+            name="firstName"
+            required
+          />
+          <div class="error-text" *ngIf="firstNameError">{{ firstNameError }}</div>
+        </div>
+        <div class="field-group">
+          <input
+            type="text"
+            placeholder="Last Name"
+            [(ngModel)]="lastName"
+            name="lastName"
+            required
+          />
+          <div class="error-text" *ngIf="lastNameError">{{ lastNameError }}</div>
+        </div>
+      </div>
+
+      <input
+        type="email"
+        placeholder="Email"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+      <div class="error-text" *ngIf="emailError">{{ emailError }}</div>
+
+      <input
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+      <div class="error-text" *ngIf="passwordError">{{ passwordError }}</div>
+
+      <button type="submit">
+        Create Account
+      </button>
+      <div class="error-text" *ngIf="generalError">{{ generalError }}</div>
+    </form>
+
+    <div class="login-redirect">
+      <span style="color: #555;">Already have an account?</span>
+      <a routerLink="/login" class="login-link" style="text-decoration: none;">Sign in →</a>
+    </div>
+  </div>
+</div>

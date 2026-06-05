@@ -45,9 +45,16 @@
 
         <div class="cart-total">
           Total: R{{ cartTotalPrice() | number:'1.2-2' }}
+      
         </div>
+                   <!-- ADD THIS CHECKOUT BUTTON -->
+                   <button class="checkout-from-cart-btn" (click)="showCheckoutModal.set(true)">
+                    Proceed to Checkout
+                  </button>
+
       </div>
     </div>
+    
   }
   
    <!-- WISHLIST -->

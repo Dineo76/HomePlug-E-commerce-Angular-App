@@ -1,0 +1,61 @@
+<div class="modal-overlay" (click)="close()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="close()">×</button>
+        
+        <div *ngIf="isLoggedIn; else loginPrompt">
+          <div class="profile-header">
+            <div class="profile-avatar-large">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+              </svg>
+            </div>
+            <h3>{{ userFirstName }} {{ userLastName }}</h3>
+            <p class="user-status">Logged In</p>
+          </div>
+          
+          <div class="user-info">
+            <div class="info-item">
+              <span class="info-label">Email:</span>
+              <span class="info-value">{{ userEmail }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">User ID:</span>
+              <span class="info-value">{{ userId | slice:0:8 }}...</span>
+            </div>
+          </div>
+          
+          <button class="logout-btn" (click)="onLogout()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Logout
+          </button>
+        </div>
+        
+        <ng-template #loginPrompt>
+          <div class="login-prompt">
+            <div class="prompt-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+              </svg>
+            </div>
+            <h3>Welcome to HomePlug!</h3>
+            <p>Please log in to access your profile, wishlist and order history.</p>
+            <button class="login-btn" (click)="openLogin()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+              Login to Your Account
+            </button>
+            <p class="signup-text">
+              Don't have an account? 
+              <a (click)="openRegister()" style="cursor: pointer; color: #6f8b7a; font-weight: 600;">Sign up here</a>
+            </p>
+          </div>
+        </ng-template>
+      </div>
+    </div>

@@ -12,7 +12,7 @@
       type="text"
       placeholder="Search products..."
       [(ngModel)]="searchTerm"
-      (keyup.enter)="searchProducts()"
+      (input)="searchProducts()"
     />
 
   </div>

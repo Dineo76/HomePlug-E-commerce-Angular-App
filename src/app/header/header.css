@@ -137,6 +137,31 @@
     font-weight: 500;
     color: #f3f4f0;
   }
+
+  .toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #6f8b7a;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    z-index: 9999;
+    animation: slideIn 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
   
   .icon + .icon,
   .profile {

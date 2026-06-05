@@ -1,9 +1,14 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../../Services/product-services';
+<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
 import { CheckoutComponent } from '../checkout/checkout';
 
+=======
+import { CheckoutComponent } from '../../Components/checkout/checkout';
+import { ActivatedRoute } from '@angular/router'; // ✅ ADDED
+>>>>>>> 593df4ddba56ccbf2e6c9ebd48af9fdb6058c97d
 
 @Component({
   selector: 'app-products',
@@ -15,8 +20,7 @@ import { CheckoutComponent } from '../checkout/checkout';
 export class Products implements OnInit {
 
   productService = inject(ProductsService);
-  route = inject(ActivatedRoute);
-   searchQuery = signal('');
+  private route = inject(ActivatedRoute); // ✅ ADDED
 
   /* UI STATE (LOCAL ONLY - PRODUCT PAGE) */
 
@@ -24,6 +28,8 @@ export class Products implements OnInit {
   selectedCategory = signal<string>('all');
   toastMessage = signal<string | null>(null);
   showCheckoutModal = signal(false);
+
+  searchQuery = signal(''); // ✅ ADDED
 
   /* TOAST */
 
@@ -37,14 +43,20 @@ export class Products implements OnInit {
 
   /* INIT */
 
- ngOnInit(): void {
-  this.productService.getProducts();
+  ngOnInit(): void {
+    this.productService.getProducts();
 
-  this.route.queryParamMap.subscribe(params => {
-    const q = params.get('q') ?? '';
-    this.searchQuery.set(q);
-  });
-}
+    // ✅ READ SEARCH FROM NAVBAR URL
+    this.route.queryParams.subscribe(params => {
+      const q = params['q'];
+
+      if (q) {
+        this.searchQuery.set(q.toLowerCase());
+      } else {
+        this.searchQuery.set('');
+      }
+    });
+  }
 
   /* PRODUCT MODAL */
 
@@ -56,25 +68,31 @@ export class Products implements OnInit {
     this.selectedProduct.set(null);
   }
 
-  /* CATEGORY FILTER */
+  /* CATEGORY FILTER + SEARCH FIX */
 
   filteredProducts = computed(() => {
-  const products = this.productService.products();
-  const category = this.selectedCategory().toLowerCase();
-  const query = this.searchQuery().toLowerCase();
+    const products = this.productService.products();
+    const category = this.selectedCategory();
+    const search = this.searchQuery();
 
-  return products.filter(p => {
-    const matchesCategory =
-      category === 'all' || p.category.toLowerCase() === category;
+    let result = products;
 
-    const matchesSearch =
-      !query ||
-      p.title.toLowerCase().includes(query) ||
-      p.category.toLowerCase().includes(query);
+    // category filter (UNCHANGED)
+    if (category === 'all') {
+      result = products;
+    } else {
+      result = products.filter(p => p.category === category);
+    }
 
-    return matchesCategory && matchesSearch;
+    // ✅ SEARCH FIX
+    if (search) {
+      result = result.filter(p =>
+        (p.title ?? '').toLowerCase().includes(search)
+      );
+    }
+
+    return result;
   });
-});
 
   /* CART ACTIONS */
 
@@ -136,8 +154,6 @@ export class Products implements OnInit {
   wishlist() {
     return this.productService.wishlist();
   }
-
-  /* CART TOTALS */
 
   cartTotal() {
     return this.productService.cartTotal();

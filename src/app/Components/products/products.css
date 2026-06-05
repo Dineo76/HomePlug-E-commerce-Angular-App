@@ -57,7 +57,7 @@
 
 .products-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 310px));
   gap: 30px;
 }
 
@@ -70,6 +70,7 @@
   position: relative;
   transition: 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  max-width: 310px;
 }
 
 .product-card:hover {
@@ -195,6 +196,10 @@
   border-radius: 20px;
   position: relative;
   animation: modalPop 0.3s ease;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes modalPop {
@@ -225,6 +230,14 @@
 .modal p {
   color: #555;
   line-height: 1.6;
+}
+
+/* Scrollable area for long cart/wishlist lists inside modal */
+.cart-items {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  padding-right: 8px; /* avoid overlaying scrollbar on content */
+  margin: 10px 0;
 }
 
 /* CLOSE BUTTON */
@@ -549,7 +562,7 @@ button {
 
 /* Add an icon before the text */
 .checkout-from-cart-btn::after {
-  content: "💳";
+  content: "";
   font-size: 18px;
   transition: transform 0.3s ease;
 }

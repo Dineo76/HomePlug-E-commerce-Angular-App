@@ -81,7 +81,7 @@
         
         <!-- Error Message Display -->
         <div *ngIf="paymentService.paymentError()" class="error-message">
-          ⚠️ {{ paymentService.paymentError() }}
+           {{ paymentService.paymentError() }}
         </div>
         
         <button 
@@ -89,7 +89,7 @@
           class="pay-btn"
           [disabled]="paymentForm.invalid || paymentService.isProcessing()"
         >
-          <span *ngIf="!paymentService.isProcessing()">💳 Pay R{{ totalAmount().toFixed(2) }}</span>
+          <span *ngIf="!paymentService.isProcessing()"> Pay R{{ totalAmount().toFixed(2) }}</span>
           <span *ngIf="paymentService.isProcessing()" class="spinner">⏳ Processing...</span>
         </button>
       </form>

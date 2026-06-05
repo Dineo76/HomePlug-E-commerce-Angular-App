@@ -5,15 +5,17 @@
 
 
 .hero {
-  min-height: 88vh;
-  background:
+  min-height: 40vh;
+  background-image:
     linear-gradient(to bottom right, rgba(47, 58, 44, 0.82), rgba(125, 155, 118, 0.6)),
-    url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600') center/cover no-repeat;
+    url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1600');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   display: flex;
   align-items: center;
-  padding: 4rem;
+  padding: 8rem;
 }
-
 .hero-content {
   max-width: 600px;
   color: #fff;

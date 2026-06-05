@@ -1,3 +1,109 @@
 <app-header></app-header>
+<!-- CART -->
+@if(productService.showCart()) {
+    <div class="modal-backdrop" (click)="productService.closeCart()">
+
+      <div class="modal" (click)="$event.stopPropagation()">
+
+        <button class="close-modal" (click)="productService.closeCart()">✕</button>
+
+        <h2>Shopping Cart</h2>
+
+        @if(cart().length === 0) {
+          <p>Your cart is empty.</p>
+        }
+
+        @for(item of cart(); track item.id) {
+
+          <div class="cart-row">
+
+            <div class="cart-info">
+
+              <img [src]="item.thumbnail" class="cart-image">
+
+              <div>
+                <h4>{{ item.title }}</h4>
+                <p>Qty: {{ item.quantity }}</p>
+                <p>R{{ item.price }} each</p>
+
+                <p class="subtotal">
+                  Subtotal: R{{ item.price * item.quantity | number:'1.2-2' }}
+                </p>
+
+              </div>
+
+            </div>
+
+            <button class="cart-remove-btn"
+              (click)="removeFromCart(item)">
+              Remove
+            </button>
+
+          </div>
+
+        }
+
+        <div class="cart-total">
+          Total: R{{ cartTotalPrice() | number:'1.2-2' }}
+        </div>
+      </div>
+    </div>
+  }
+  
+   <!-- WISHLIST -->
+  @if(productService.showWishlist()) {
+
+    <div class="modal-backdrop" (click)="productService.closeWishlist()">
+
+      <div class="modal" (click)="$event.stopPropagation()">
+
+        <button class="close-modal" (click)="productService.closeWishlist()">✕</button>
+
+        <h2>Wishlist</h2>
+
+        @if(wishlist().length === 0) {
+          <p>Your wishlist is empty.</p>
+        }
+
+        @for(item of wishlist(); track item.id) {
+
+          <div class="cart-row">
+
+            <div class="cart-info">
+
+              <img [src]="item.thumbnail" class="cart-image">
+
+              <div>
+                <h4>{{ item.title }}</h4>
+                <p>R{{ item.price }}</p>
+              </div>
+
+            </div>
+
+            <button class="cart-remove-btn"
+              (click)="toggleWishlist(item)">
+              Remove
+            </button>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+   <!-- Checkout Button -->
+  @if(showCheckoutModal()) {
+    <app-checkout
+      [isOpen]="showCheckoutModal()"
+      [totalAmount]="cartTotalPrice()"
+      (onClose)="showCheckoutModal.set(false)"
+      (onPaymentSuccess)="productService.cart.set([]); showCheckoutModal.set(false)"
+    ></app-checkout>
+  }
+  
 <router-outlet></router-outlet>
 <app-footer />

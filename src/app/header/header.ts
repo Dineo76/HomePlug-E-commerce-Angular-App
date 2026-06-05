@@ -9,8 +9,6 @@ import { StorageService } from '../Services/storage';
 import { Component, inject, NgZone } from '@angular/core';
 import {  Router, RouterLink, NavigationEnd, RouterLinkActive } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -33,6 +31,18 @@ export class Header {
   private router = inject(Router);
   productService = inject(ProductsService);
   searchTerm: string = '';
+
+  searchProducts() {
+    const query = this.searchTerm.trim();
+    if (!query) {
+      return;
+    }
+
+    this.router.navigate(['/products'], {
+      queryParams: { q: query },
+      queryParamsHandling: 'merge',
+    });
+  }
 
   constructor(
     private authService: AuthService,
@@ -215,16 +225,5 @@ export class Header {
       });
   }
 
-  searchProducts() {
-    const query = this.searchTerm.trim();
-    if (!query) {
-      return;
-    }
-
-    this.router.navigate(['/products'], {
-      queryParams: { q: query },
-      queryParamsHandling: 'merge',
-    });
-  }
 }
 
